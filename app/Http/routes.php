@@ -1,6 +1,7 @@
 <?php
 
 use CodeZero\Twitter\Twitter;
+use Vinkla\Instagram\Facades\Instagram;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/', function () {
 });
 
 /**
- * Registers the GET route to the codezero/twitter test page.
+ * Registers the GET route to the codezero/twitter package test page.
  */
 Route::get('/twitter/codezero', function () {
     $config = __DIR__ . '/../../config/twitter.php';
@@ -30,4 +31,27 @@ Route::get('/twitter/codezero', function () {
     dd($tweets);
 
     return 'codezero/twitter';
+});
+
+/**
+ * Registers the GET route to the vinkla/instagram package test page.
+ */
+Route::get('/instagram/vinkla', function () {
+    $tag_media = Instagram::getTagMedia('taylorswift', 50);
+    // dd($tag_media);
+    echo '<h1>Tag Media</h1>';
+    foreach ($tag_media->data as $media) {
+        echo '<a href=', $media->link, '>', $media->caption->text,
+            '</a><br><br>';
+    }
+
+    $popular_media = Instagram::getPopularMedia();
+    // dd($popular_media);
+    echo '<h1>Popular Media</h1>';
+    foreach ($popular_media->data as $media) {
+        echo '<a href=', $media->link, '>', $media->caption->text,
+            '</a><br><br>';
+    }
+
+    return 'vinkla/instagram';
 });

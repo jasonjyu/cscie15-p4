@@ -149,6 +149,12 @@ return [
          * codezero/twitter Service Providers...
          */
          CodeZero\Twitter\TwitterServiceProvider::class,
+
+         /*
+          * vinkla/instagram Service Providers...
+          */
+         Vinkla\Instagram\InstagramServiceProvider::class
+
     ],
 
     /*
@@ -197,6 +203,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /*
+         * vinkla/instagram class aliases...
+         */
+        'Instagram' => Vinkla\Instagram\Facades\Instagram::class
 
     ],
 
