@@ -6,8 +6,8 @@ return [
 
     'api_version' => '1.1',
 
-    'api_key' => 'cLkwrqLVtpo4U3pSXwhPxZreQ',
+    'api_key' => '',
 
-    'api_secret' => 'z2CtRB2wUe61ykW4lbUmdmQrNVwswESyXCMY0as4ACIIRYo9yq'
+    'api_secret' => ''
 
 ];
