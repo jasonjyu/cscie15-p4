@@ -38,9 +38,9 @@ return [
     'connections' => [
 
         'main' => [
-            'client_id' => 'fc03c17e7a844077bcf05241da432dcd',
-            'client_secret' => '07f2ac0a152f443286338f741b9d98fa',
-            'callback_url' => null,
+            'client_id' => function_exists('env') ? env('INSTAGRAM_CLIENT_ID', '') : '',
+            'client_secret' => function_exists('env') ? env('INSTAGRAM_CLIENT_SECRET', '') : '',
+            'callback_url' => function_exists('env') ? env('INSTAGRAM_CALLBACK_URL', '') : '',
         ],
 
         'alternative' => [
