@@ -1,8 +1,5 @@
 <?php
 
-use CodeZero\Twitter\Twitter;
-use Vinkla\Instagram\Facades\Instagram;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -26,11 +23,26 @@ Route::get('/', function () {
  */
 Route::get('/twitter/codezero', function () {
     $config = __DIR__ . '/../../config/twitter.php';
-    $twitter = new Twitter($config);
+    $twitter = new CodeZero\Twitter\Twitter($config);
     $tweets = $twitter->searchTweets('taylorswift', 50);
     dd($tweets);
 
     return 'codezero/twitter';
+});
+
+/**
+ * Registers the GET route to the thujohn/twitter package test page.
+ */
+Route::get('/twitter/thujohn', function () {
+    $search_results = Twitter::getSearch(['q' => 'taylorswift']);
+    // dd($search_results);
+    echo '<h1>Tweets</h1>';
+    foreach($search_results->statuses as $tweet) {
+        echo '<a href=', Twitter::linkTweet($tweet), '>', $tweet->text,
+            '</a><br><br>';
+    }
+
+    return 'thujohn/twitter';
 });
 
 /**

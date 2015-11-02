@@ -148,12 +148,17 @@ return [
         /*
          * codezero/twitter Service Providers...
          */
-         CodeZero\Twitter\TwitterServiceProvider::class,
+        CodeZero\Twitter\TwitterServiceProvider::class,
+
+        /*
+         * thujohn/twitter Service Providers...
+         */
+        Thujohn\Twitter\TwitterServiceProvider::class,
 
          /*
           * vinkla/instagram Service Providers...
           */
-         Vinkla\Instagram\InstagramServiceProvider::class
+        Vinkla\Instagram\InstagramServiceProvider::class,
 
     ],
 
@@ -205,9 +210,14 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         /*
+         * thujohn/twitter class aliases...
+         */
+        'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
+
+        /*
          * vinkla/instagram class aliases...
          */
-        'Instagram' => Vinkla\Instagram\Facades\Instagram::class
+        'Instagram' => Vinkla\Instagram\Facades\Instagram::class,
 
     ],
 
