@@ -15,8 +15,13 @@
  * Registers the GET route to the application landing page.
  */
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+/**
+ * Registers the GET route to Search page.
+ */
+Route::get('/search', 'SearchController@getIndex');
 
 /**
  * Registers the GET route to the codezero/twitter package test page.
@@ -38,7 +43,7 @@ Route::get('/twitter/thujohn', function () {
         'result_type' => 'popular']);
     // dd($search_results);
     echo '<h1>Tweets</h1>';
-    foreach($search_results->statuses as $tweet) {
+    foreach ($search_results->statuses as $tweet) {
         echo '<a href=', Twitter::linkTweet($tweet), '>', $tweet->text,
             '</a><br><br>';
     }
