@@ -26,7 +26,7 @@ specific styesheets.
     @endif
 
     {{-- if the $twitter_results array is set, then print out the tweets --}}
-    @if (isset($twitter_results))
+    @if (isset($twitter_results) && !empty($twitter_results))
         <div class='twitter-results'>
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
@@ -40,7 +40,7 @@ specific styesheets.
     @endif
 
     {{-- if the $twitter_results array is set, then print out the tweets --}}
-    @if (isset($instagram_results))
+    @if (isset($instagram_results) && !empty($instagram_results))
         <div class='instagram-results'>
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)

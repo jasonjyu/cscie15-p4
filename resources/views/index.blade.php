@@ -11,8 +11,7 @@ such as a page specific styesheets.
 
 @section('content')
     <form method='get' action='/search' data-transition='none'
-        {{-- allow error and debug pages to open with jQuery libraries --}}
-          {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
+          data-ajax='false'>
         <input id='search' type='search' name='search'
                placeholder='Search for a hashtag...'>
         <input type='submit' data-inline='true' value='Search'>
