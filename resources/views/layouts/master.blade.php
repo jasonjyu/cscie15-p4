@@ -37,9 +37,9 @@
 
         <nav>
             <ul>
-                <li><a class='btn btn-sm btn-default' href='/lorem-ipsum' data-ajax='false'>Login</a></li>
-                <li><a class='btn btn-sm btn-default' href='/random-user' data-ajax='false'>Saved Searches</a></li>
-                <li><a class='btn btn-sm btn-default' href='/xkcd-password' data-ajax='false'>Corkboard</a></li>
+                <li><a class='btn btn-sm btn-default' href='/login' data-ajax='false'>Login</a></li>
+                <li><a class='btn btn-sm btn-default' href='/saved-searches' data-ajax='false'>Saved Searches</a></li>
+                <li><a class='btn btn-sm btn-default' href='/cork' data-ajax='false'>Corkboard</a></li>
             </ul>
         </nav>
 

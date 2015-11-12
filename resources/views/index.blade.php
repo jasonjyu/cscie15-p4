@@ -12,10 +12,19 @@ such as a page specific styesheets.
 @section('content')
     <form method='get' action='/search' data-transition='none'
           data-ajax='false'>
-        <input id='search' type='search' name='search'
+        <input id='search' type='search' name='hashtag'
                placeholder='Search for a hashtag...'>
         <input type='submit' data-inline='true' value='Search'>
     </form>
+
+    {{-- if there are errors, then print them out --}}
+    @if (count($errors) > 0)
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 @stop
 
 {{--

@@ -15,18 +15,32 @@ class SearchController extends Controller
      */
     public function getIndex(Request $request)
     {
-        // parse request
-        $hashtag = $request["search"];
+        // if request query parameters array is empty,
+        // then return default search page
+        if (empty($request->all())) {
+            $view = view("search.index");
+        } else {
+            // validate request
+            $this->validate(
+                $request,
+                [
+                    "hashtag" => "required"
+                ]);
 
-        // search social media feeds if a hashtag is specified
-        if (isset($hashtag)) {
+            // parse request
+            $hashtag = $request["hashtag"];
+
+            // search social media feeds for the specified hashtag
             $twitter_results = $this->searchTwitter($hashtag);
             $instagram_results = $this->searchInstagram($hashtag);
+
+            // return the search results page
+            $view = view("search.index")
+                ->with("twitter_results", $twitter_results)
+                ->with("instagram_results", $instagram_results);
         }
 
-        // return the search results page
-        return view("search.index")->with("twitter_results", $twitter_results)
-            ->with("instagram_results", $instagram_results);
+        return $view;
     }
 
     /**

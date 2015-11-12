@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Search Results
+    Search
 @stop
 
 {{--
@@ -14,7 +14,7 @@ specific styesheets.
 @stop
 
 @section('content')
-    <h2>Search Results</h2>
+    <h2>Search</h2>
 
     {{-- if there are errors, then print them out --}}
     @if (count($errors) > 0)
