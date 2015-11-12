@@ -34,7 +34,8 @@ Route::get('/twitter/codezero', function () {
  * Registers the GET route to the thujohn/twitter package test page.
  */
 Route::get('/twitter/thujohn', function () {
-    $search_results = Twitter::getSearch(['q' => 'taylorswift']);
+    $search_results = Twitter::getSearch(['q' => 'taylorswift', 'lang' => 'en',
+        'result_type' => 'popular']);
     // dd($search_results);
     echo '<h1>Tweets</h1>';
     foreach($search_results->statuses as $tweet) {
