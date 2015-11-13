@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Search
+    HashTagGregator - Search
 @stop
 
 {{--
@@ -15,6 +15,13 @@ specific styesheets.
 
 @section('content')
     <h2>Search</h2>
+
+    <form method='get' action='/search' data-transition='none'
+          data-ajax='false'>
+        <input id='search' type='search' name='hashtag'
+               value='{{ $_GET['hashtag'] or '' }}'
+               placeholder='Search for a hashtag...'>
+    </form>
 
     {{-- if there are errors, then print them out --}}
     @if (count($errors) > 0)
@@ -30,7 +37,7 @@ specific styesheets.
         <div class='twitter-results'>
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
-                <a href={{ Twitter::linkTweet($tweet) }}>
+                <a href={{ Twitter::linkTweet($tweet) }} target='_blank'>
                     {{ $tweet->text }}
                 </a>
                 <br>
@@ -44,7 +51,7 @@ specific styesheets.
         <div class='instagram-results'>
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)
-                <a href={{ $post->link }}>
+                <a href={{ $post->link }} target='_blank'>
                     {{ $post->caption->text }}
                 </a>
                 <br>
