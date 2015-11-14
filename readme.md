@@ -19,7 +19,9 @@ TBD.
 * Instagram PHP API V2: https://github.com/cosenary/Instagram-PHP-API
 * Laravel Instagram: https://github.com/vinkla/instagram
 * jQuery Mobile Search Input: http://www.w3schools.com/jquerymobile/jquerymobile_form_inputs.asp
+
 http://www.w3schools.com/jquerymobile/tryit.asp?filename=tryjqmob_forms_popup
 https://jqueryui.com/autocomplete/
-
 https://dev.twitter.com/rest/reference/get/search/tweets
+
+composer dump-autoload

@@ -28,7 +28,7 @@ Route::get('/twitter/codezero', function () {
     $config = __DIR__ . '/../../config/twitter.php';
     $twitter = new CodeZero\Twitter\Twitter($config);
     $tweets = $twitter->searchTweets('taylorswift', 50);
-    dd($tweets);
+    dump($tweets);
 
     return 'codezero/twitter';
 });
@@ -39,7 +39,7 @@ Route::get('/twitter/codezero', function () {
 Route::get('/twitter/thujohn', function () {
     $search_results = Twitter::getSearch(['q' => 'taylorswift', 'lang' => 'en',
         'result_type' => 'popular']);
-    // dd($search_results);
+    dump($search_results);
     echo '<h1>Tweets</h1>';
     foreach ($search_results->statuses as $tweet) {
         echo '<a href=', Twitter::linkTweet($tweet), '>', $tweet->text,
@@ -54,19 +54,19 @@ Route::get('/twitter/thujohn', function () {
  */
 Route::get('/instagram/vinkla', function () {
     $tag_media = Instagram::getTagMedia('taylorswift', 50);
-    // dd($tag_media);
+    dump($tag_media);
     echo '<h1>Tag Media</h1>';
     foreach ($tag_media->data as $media) {
-        echo '<a href=', $media->link, '>', $media->caption->text,
-            '</a><br><br>';
+        echo '<a href=', $media->link, '>', $media->caption ?
+            $media->caption->text : $media->link, '</a><br><br>';
     }
 
     $popular_media = Instagram::getPopularMedia();
-    // dd($popular_media);
+    dump($popular_media);
     echo '<h1>Popular Media</h1>';
     foreach ($popular_media->data as $media) {
-        echo '<a href=', $media->link, '>', $media->caption->text,
-            '</a><br><br>';
+        echo '<a href=', $media->link, '>', $media->caption ?
+            $media->caption->text : $media->link, '</a><br><br>';
     }
 
     return 'vinkla/instagram';
