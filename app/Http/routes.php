@@ -17,9 +17,14 @@
 Route::get('/', 'SearchController@getIndex');
 
 /**
- * Registers the GET route to Search page.
+ * Registers the GET route to the Search page.
  */
 Route::get('/search', 'SearchController@getIndex');
+
+/**
+ * Registers the GET route to the Hashtags page.
+ */
+Route::get('/hashtags', 'HashtagController@getIndex');
 
 /**
  * Registers the GET route to the codezero/twitter package test page.

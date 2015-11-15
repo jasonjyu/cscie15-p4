@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class SearchController extends Controller
 {
     /**
-     * Displays the search results page.
+     * Displays the Search results page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +31,7 @@ class SearchController extends Controller
             // parse request
             $hashtag = $request["hashtag"];
 
-            // save off hashtag term for user
+            // save off hashtag term
             \App\Hashtag::firstOrCreate(["term" => $hashtag]);
 
             // search social media feeds for the specified hashtag
