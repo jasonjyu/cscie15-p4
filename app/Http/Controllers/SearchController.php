@@ -30,6 +30,9 @@ class SearchController extends Controller
             // parse request
             $hashtag = $request["hashtag"];
 
+            // save off hashtag term for user
+            \App\Hashtag::firstOrCreate(["term" => $hashtag]);
+
             // search social media feeds for the specified hashtag
             $twitter_results = $this->searchTwitter($hashtag);
             $instagram_results = $this->searchInstagram($hashtag);
