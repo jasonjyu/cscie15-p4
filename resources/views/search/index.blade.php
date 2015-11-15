@@ -19,9 +19,12 @@ specific styesheets.
     <form method='get' action='/search' data-transition='none'
         {{-- allow error and debug pages to open with jQuery libraries --}}
           {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
-        <input id='search' type='search' name='hashtag'
+        <input id='search'
+               type='search'
+               name='hashtag'
                value='{{ $_GET['hashtag'] or '' }}'
-               placeholder='Search for a hashtag...'>
+               placeholder='Search for a hashtag...'
+               autofocus>
     </form>
 
     {{-- if there are errors, then print them out --}}

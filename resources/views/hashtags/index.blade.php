@@ -20,7 +20,8 @@ specific styesheets.
     @if (isset($hashtags))
         <div class='hashtags'>
             @foreach ($hashtags as $hashtag)
-                <a href='/search?hashtag={{ $hashtag->term }}' data-ajax='false'>
+                <a href='/search?hashtag={{ $hashtag->term }}'
+                   data-ajax='false'>
                     {{ $hashtag->term }}
                 </a>
                 <br/>
