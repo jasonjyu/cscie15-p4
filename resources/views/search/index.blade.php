@@ -17,7 +17,8 @@ specific styesheets.
     <h2>Search</h2>
 
     <form method='get' action='/search' data-transition='none'
-          data-ajax='false'>
+        {{-- allow error and debug pages to open with jQuery libraries --}}
+          {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
         <input id='search' type='search' name='hashtag'
                value='{{ $_GET['hashtag'] or '' }}'
                placeholder='Search for a hashtag...'>
@@ -37,11 +38,11 @@ specific styesheets.
         <div class='twitter-results'>
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
-                <a href={{ Twitter::linkTweet($tweet) }} target='_blank'>
+                <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
                     {{ $tweet->text }}
                 </a>
-                <br>
-                <br>
+                <br/>
+                <br/>
             @endforeach
         </div>
     @endif
@@ -51,15 +52,15 @@ specific styesheets.
         <div class='instagram-results'>
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)
-                <a href={{ $post->link }} target='_blank'>
+                <a href='{{ $post->link }}' target='_blank'>
                     @if (isset($post->caption))
                         {{ $post->caption->text }}
                     @else
                         {{ $post->link }}
                     @endif
                 </a>
-                <br>
-                <br>
+                <br/>
+                <br/>
             @endforeach
         </div>
     @endif
