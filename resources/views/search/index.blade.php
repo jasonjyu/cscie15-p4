@@ -52,7 +52,7 @@ specific styesheets.
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)
                 <a href={{ $post->link }} target='_blank'>
-                    @if (isset($post->caption)
+                    @if (isset($post->caption))
                         {{ $post->caption->text }}
                     @else
                         {{ $post->link }}
