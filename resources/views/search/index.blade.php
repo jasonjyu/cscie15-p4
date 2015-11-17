@@ -19,16 +19,16 @@ specific styesheets.
     <form method='get' action='/search' data-transition='none'
         {{-- allow error and debug pages to open with jQuery libraries --}}
           {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
-        <input id='search'
+        <input id='term'
                type='search'
-               name='hashtag'
-               value='{{ $_GET['hashtag'] or '' }}'
+               name='term'
+               value='{{ old('term') }}'
                placeholder='Search for a hashtag...'
                autofocus>
     </form>
 
     {{-- if there are errors, then print them out --}}
-    @if (count($errors) > 0)
+    @if (!empty($errors))
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

@@ -25,18 +25,18 @@ class SearchController extends Controller
             $this->validate(
                 $request,
                 [
-                    "hashtag" => "required"
+                    "term" => "required"
                 ]);
 
             // parse request
-            $hashtag = $request["hashtag"];
+            $term = $request->term;
 
-            // save off hashtag term
-            \App\Hashtag::firstOrCreate(["term" => $hashtag]);
+            // save off hashtag data
+            \App\Hashtag::firstOrCreate($request->all());
 
             // search social media feeds for the specified hashtag
-            $twitter_results = $this->searchTwitter($hashtag);
-            $instagram_results = $this->searchInstagram($hashtag);
+            $twitter_results = $this->searchTwitter($term);
+            $instagram_results = $this->searchInstagram($term);
 
             // return the search results page
             $view = view("search.index")
