@@ -19,13 +19,13 @@ class SearchController extends Controller
         // if request query parameters array is empty,
         // then return default search page
         if (empty($request->all())) {
-            $view = view("search.index");
+            $view = view('search.index');
         } else {
             // validate request
             $this->validate(
                 $request,
                 [
-                    "term" => "required"
+                    'term' => 'required'
                 ]);
 
             // parse request
@@ -39,9 +39,9 @@ class SearchController extends Controller
             $instagram_results = $this->searchInstagram($term);
 
             // return the search results page
-            $view = view("search.index")
-                ->with("twitter_results", $twitter_results)
-                ->with("instagram_results", $instagram_results);
+            $view = view('search.index')
+                ->with('twitter_results', $twitter_results)
+                ->with('instagram_results', $instagram_results);
         }
 
         return $view;

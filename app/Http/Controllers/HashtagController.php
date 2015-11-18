@@ -20,7 +20,7 @@ class HashtagController extends Controller
         $hashtags = \App\Hashtag::all();
 
         // return the search Hashtags page
-        $view = view("hashtags.index")->with("hashtags", $hashtags);
+        $view = view('hashtags.index')->with('hashtags', $hashtags);
 
         return $view;
     }

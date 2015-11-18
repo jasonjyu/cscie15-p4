@@ -11,5 +11,5 @@ class Hashtag extends Model
      *
      * @var array
      */
-    protected $fillable = ["term"];
+    protected $fillable = ['term'];
 }
