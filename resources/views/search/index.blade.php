@@ -41,8 +41,11 @@ specific styesheets.
         <div class='twitter-results'>
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
+                {{ $tweet->text }}
+                <br/>
                 <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
-                    {{ $tweet->text }}
+                    {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
+                       $tweet->created_at) }}
                 </a>
                 <br/>
                 <br/>
@@ -55,12 +58,14 @@ specific styesheets.
         <div class='instagram-results'>
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)
+                @if (isset($post->caption))
+                    {{ $post->caption->text }}
+                @else
+                    {{ $post->link }}
+                @endif
+                <br/>
                 <a href='{{ $post->link }}' target='_blank'>
-                    @if (isset($post->caption))
-                        {{ $post->caption->text }}
-                    @else
-                        {{ $post->link }}
-                    @endif
+                    {{ Carbon\Carbon::createFromTimestamp($post->created_time) }}
                 </a>
                 <br/>
                 <br/>

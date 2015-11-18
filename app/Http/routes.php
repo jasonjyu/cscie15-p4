@@ -48,7 +48,8 @@ Route::get('/twitter/thujohn', function () {
     echo '<h1>Tweets</h1>';
     foreach ($search_results->statuses as $tweet) {
         echo '<a href=', Twitter::linkTweet($tweet), '>', $tweet->text,
-            '</a><br><br>';
+        '</a><br/>', Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
+        $tweet->created_at), '<br/><br/>';
     }
 
     return 'thujohn/twitter';
@@ -63,7 +64,9 @@ Route::get('/instagram/vinkla', function () {
     echo '<h1>Tag Media</h1>';
     foreach ($tag_media->data as $media) {
         echo '<a href=', $media->link, '>', $media->caption ?
-            $media->caption->text : $media->link, '</a><br><br>';
+            $media->caption->text : $media->link, '</a><br/>',
+            Carbon\Carbon::createFromTimestamp($media->created_time),
+            '<br/><br/>';
     }
 
     $popular_media = Instagram::getPopularMedia();
@@ -71,7 +74,9 @@ Route::get('/instagram/vinkla', function () {
     echo '<h1>Popular Media</h1>';
     foreach ($popular_media->data as $media) {
         echo '<a href=', $media->link, '>', $media->caption ?
-            $media->caption->text : $media->link, '</a><br><br>';
+            $media->caption->text : $media->link, '</a><br/>',
+            Carbon\Carbon::createFromTimestamp($media->created_time),
+            '<br/><br/>';
     }
 
     return 'vinkla/instagram';
