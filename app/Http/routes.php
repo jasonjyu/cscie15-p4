@@ -47,9 +47,10 @@ Route::get('/twitter/thujohn', function () {
     dump($search_results);
     echo '<h1>Tweets</h1>';
     foreach ($search_results->statuses as $tweet) {
-        echo '<a href=', Twitter::linkTweet($tweet), '>', $tweet->text,
-        '</a><br/>', Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
-        $tweet->created_at), '<br/><br/>';
+        echo Twitter::linkify($tweet), '<br/><a href=',
+        Twitter::linkTweet($tweet), '>',
+        Carbon\Carbon::createFromFormat('D M d H:i:s P Y', $tweet->created_at),
+        '</a><br/><br/>';
     }
 
     return 'thujohn/twitter';
@@ -63,20 +64,20 @@ Route::get('/instagram/vinkla', function () {
     dump($tag_media);
     echo '<h1>Tag Media</h1>';
     foreach ($tag_media->data as $media) {
-        echo '<a href=', $media->link, '>', $media->caption ?
-            $media->caption->text : $media->link, '</a><br/>',
+        echo $media->caption ? $media->caption->text : '', '<br/><a href=',
+            $media->link, '>',
             Carbon\Carbon::createFromTimestamp($media->created_time),
-            '<br/><br/>';
+            '</a><br/><br/>';
     }
 
     $popular_media = Instagram::getPopularMedia();
     dump($popular_media);
     echo '<h1>Popular Media</h1>';
     foreach ($popular_media->data as $media) {
-        echo '<a href=', $media->link, '>', $media->caption ?
-            $media->caption->text : $media->link, '</a><br/>',
+        echo $media->caption ? $media->caption->text : '', '<br/><a href=',
+            $media->link, '>',
             Carbon\Carbon::createFromTimestamp($media->created_time),
-            '<br/><br/>';
+            '</a><br/><br/>';
     }
 
     return 'vinkla/instagram';

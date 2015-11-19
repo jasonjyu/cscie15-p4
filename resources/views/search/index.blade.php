@@ -42,7 +42,7 @@ specific styesheets.
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
                 <div class='post'>
-                    {{ $tweet->text }}
+                    {!! Twitter::linkify($tweet) !!}
                     <br/>
                     <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
                         {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
