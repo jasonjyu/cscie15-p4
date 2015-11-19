@@ -1,4 +1,9 @@
 .twitter-results, .instagram-results {
     text-align: left;
+}
+
+.post {
+    padding: 5px;
+    text-align: left;
     word-wrap: break-word;
 }

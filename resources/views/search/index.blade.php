@@ -28,7 +28,7 @@ specific styesheets.
     </form>
 
     {{-- if there are errors, then print them out --}}
-    @if (!empty($errors))
+    @if (count($errors) > 0)
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -36,39 +36,39 @@ specific styesheets.
         </ul>
     @endif
 
-    {{-- if $twitter_results is not empty, then print out the tweets --}}
+    {{-- if $twitter_results is not empty, then display the tweets --}}
     @if (!empty($twitter_results))
         <div class='twitter-results'>
             <h3>Twitter</h3>
             @foreach ($twitter_results as $tweet)
-                {{ $tweet->text }}
-                <br/>
-                <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
-                    {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
-                       $tweet->created_at) }}
-                </a>
-                <br/>
-                <br/>
+                <div class='post'>
+                    {{ $tweet->text }}
+                    <br/>
+                    <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
+                        {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
+                           $tweet->created_at) }}
+                    </a>
+                </div>
             @endforeach
         </div>
     @endif
 
-    {{-- if $instagram_results is not empty, then print out the posts --}}
+    {{-- if $instagram_results is not empty, then display the posts --}}
     @if (!empty($instagram_results))
         <div class='instagram-results'>
             <h3>Instagram</h3>
             @foreach ($instagram_results as $post)
-                @if (isset($post->caption))
-                    {{ $post->caption->text }}
-                @else
-                    {{ $post->link }}
-                @endif
-                <br/>
-                <a href='{{ $post->link }}' target='_blank'>
-                    {{ Carbon\Carbon::createFromTimestamp($post->created_time) }}
-                </a>
-                <br/>
-                <br/>
+                <div class='post'>
+                    @if (isset($post->caption))
+                        {{ $post->caption->text }}
+                    @else
+                        {{ $post->link }}
+                    @endif
+                    <br/>
+                    <a href='{{ $post->link }}' target='_blank'>
+                        {{ Carbon\Carbon::createFromTimestamp($post->created_time) }}
+                    </a>
+                </div>
             @endforeach
         </div>
     @endif

@@ -17,11 +17,10 @@ specific styesheets.
     <h2>Searched Hashtags</h2>
 
     {{-- if $hashtags is not empty, then print out the hashtag terms --}}
-    @if (isset($hashtags))
+    @if (!empty($hashtags))
         <div class='hashtags'>
             @foreach ($hashtags as $hashtag)
-                <a href='/search?term={{ $hashtag->term }}'
-                   data-ajax='false'>
+                <a href='/search?term={{ $hashtag->term }}' data-ajax='false'>
                     {{ $hashtag->term }}
                 </a>
                 <br/>
