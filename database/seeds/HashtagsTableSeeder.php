@@ -11,6 +11,18 @@ class HashtagsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $hashtag_terms = [
+            'taylorswift',
+            'carrieunderwood',
+            'katyperry',
+            'adele',
+            'mileycyrus',
+        ];
+
+        foreach ($hashtag_terms as $term) {
+            $hashtag = new \App\Hashtag();
+            $hashtag->term = $term;
+            $hashtag->save();
+        }
     }
 }
