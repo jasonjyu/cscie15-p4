@@ -13,6 +13,7 @@
 
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet'/>
     <link href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/readable/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet'>
 
     {{-- Required for the jQuery Mobile library --}}
     <link href='//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css' rel='stylesheet'/>
@@ -31,6 +32,12 @@
 </head>
 <body>
     <div class='container'>
+        @if (\Session::has('flash_message'))
+            <div class='flash_message'>
+                {{ \Session::get('flash_message') }}
+            </div>
+        @endif
+
         <header>
             <h1>HashTagGregator</h1>
         </header>
@@ -38,9 +45,15 @@
         <nav>
             <ul>
                 <li><a class='btn btn-sm btn-default' href='/search' data-ajax='false'>Search</a></li>
-                <li><a class='btn btn-sm btn-default' href='/login' data-ajax='false'>Login</a></li>
                 <li><a class='btn btn-sm btn-default' href='/hashtags' data-ajax='false'>Hashtags</a></li>
                 <li><a class='btn btn-sm btn-default' href='/corkboard' data-ajax='false'>Corkboard</a></li>
+
+                {{-- Show links based on if user is authenticated --}}
+                @if (Auth::check())
+                    <li><a class='btn btn-sm btn-default' href='/logout' data-ajax='false'>Logout</a></li>
+                @else
+                    <li><a class='btn btn-sm btn-default' href='/login' data-ajax='false'>Login</a></li>
+                @endif
             </ul>
         </nav>
 

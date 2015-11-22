@@ -28,13 +28,7 @@ specific styesheets.
     </form>
 
     {{-- if there are errors, then print them out --}}
-    @if (count($errors) > 0)
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+    @include('errors')
 
     {{-- if $twitter_results is not empty, then display the tweets --}}
     @if (!empty($twitter_results))
