@@ -22,7 +22,7 @@ specific styesheets.
         <input id='term'
                type='search'
                name='term'
-               value='{{ old('term') }}'
+               value='{{ $_GET['term'] or '' }}'
                placeholder='Search for a hashtag...'
                autofocus>
     </form>
