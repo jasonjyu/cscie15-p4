@@ -36,4 +36,14 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * Defines the relationship between this model and the Hashtag model.
+     */
+    public function hashtags()
+    {
+        // withTimestamps() will ensure the pivot table has its
+        // created_at/updated_at fields automatically maintained
+        return $this->belongsToMany('\App\Hashtag')->withTimestamps();
+    }
 }
