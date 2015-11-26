@@ -146,6 +146,11 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Debug Bar package...
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+
+        /*
          * codezero/twitter Service Providers...
          */
         CodeZero\Twitter\TwitterServiceProvider::class,
@@ -208,6 +213,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Debug Bar package...
+         */
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
         /*
          * thujohn/twitter class aliases...
