@@ -16,11 +16,18 @@ class HashtagController extends Controller
      */
     public function getIndex(Request $request)
     {
-        // query the database for saved hashtags
-        $hashtags = \App\Hashtag::all();
+        // get the current logged in user
+        $user = \Auth::user();
 
-        // return the search Hashtags page
-        $view = view('hashtags.index')->with('hashtags', $hashtags);
+        // if a user is logged in, then display the user's saved hashtags
+        // otherwise, do not display any hashtags
+        if ($user) {
+            // return the Hashtags page with the user's saved hashtags
+            $view = view('hashtags.index')->with('hashtags', $user->hashtags);
+        } else {
+            // return the Hashtags page without any hashtags
+            $view = view('hashtags.index');
+        }
 
         return $view;
     }
