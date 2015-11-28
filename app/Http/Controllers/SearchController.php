@@ -32,7 +32,7 @@ class SearchController extends Controller
             $term = $request->term;
 
             // save off hashtag data
-            \App\Hashtag::firstOrCreate($request->all());
+            $this->saveHashtag($term);
 
             // search social media feeds for the specified hashtag
             $twitter_results = $this->searchTwitter($term);
@@ -48,10 +48,32 @@ class SearchController extends Controller
     }
 
     /**
+     * Saves specified hashtag $term to database and associates the hashtag with
+     * the user logged in if applicable.
+     *
+     * @param  string $term
+     */
+    protected function saveHashtag($term)
+    {
+        // get hashtag corresponding to the specified $term or create if it
+        // does not exist
+        $hashtag = \App\Hashtag::firstOrCreate(['term' => $term]);
+
+        // get the user logged in
+        $user = \Auth::user();
+
+        // if a user is logged in and the hashtag is not already associated,
+        // then associate the user with the hashtag
+        if ($user && !$user->hashtags->contains($hashtag->id)) {
+            $user->hashtags()->save($hashtag);
+        }
+    }
+
+    /**
      * Searches Twitter for the specified $hashtag.
      *
      * @example array($tweet1, $tweet2, $tweet3)
-     * @param  string  $hashtag
+     * @param  string $hashtag
      * @return array|object
      */
     protected function searchTwitter($hashtag)
@@ -67,7 +89,7 @@ class SearchController extends Controller
      * Searches Instagram for the specified $hashtag.
      *
      * @example array($post1, $post2, $post3)
-     * @param  string  $hashtag
+     * @param  string $hashtag
      * @return array|object
      */
     protected function searchInstagram($hashtag)

@@ -32,6 +32,9 @@ class CreateHashtagUserTable extends Migration
             // make foreign keys
             $table->foreign('hashtag_id')->references('id')->on('hashtags');
             $table->foreign('user_id')->references('id')->on('users');
+
+            // make compound unique columns 'hashtag_id' and 'user_id'
+            $table->unique(['hashtag_id', 'user_id']);
         });
     }
 

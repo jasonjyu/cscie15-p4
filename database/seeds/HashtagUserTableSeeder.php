@@ -38,7 +38,7 @@ class HashtagUserTableSeeder extends Seeder
             foreach ($hashtag_terms as $term) {
                 $hashtag = \App\Hashtag::where('term', 'like', $term)->first();
 
-                // connect this hashtag to this user
+                // associate this hashtag to this user
                 $user->hashtags()->save($hashtag);
             }
 

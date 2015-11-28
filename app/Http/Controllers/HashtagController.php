@@ -16,7 +16,7 @@ class HashtagController extends Controller
      */
     public function getIndex(Request $request)
     {
-        // get the current logged in user
+        // get the user logged in
         $user = \Auth::user();
 
         // if a user is logged in, then display the user's saved hashtags
