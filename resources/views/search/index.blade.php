@@ -28,7 +28,7 @@ specific styesheets.
     </form>
 
     {{-- if there are errors, then print them out --}}
-    @include('errors')
+    @include('layouts.errors')
 
     {{-- if $twitter_results is not empty, then display the tweets --}}
     @if (!empty($twitter_results))

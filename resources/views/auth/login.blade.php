@@ -6,7 +6,7 @@
     <h1>Login</h1>
 
     {{-- if there are errors, then print them out --}}
-    @include('errors')
+    @include('layouts.errors')
 
     <form method='POST' action='/login' data-transition='none' data-ajax='false'>
         {!! csrf_field() !!}
