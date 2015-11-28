@@ -13,7 +13,7 @@
 
         <div class='form-group'>
             <label for='name'>Name</label>
-            <input type='text' name='name' id='name' value='{{ old('name') }}'>
+            <input type='text' name='name' id='name' value='{{ old('name') }}' autofocus>
         </div>
 
         <div class='form-group'>
