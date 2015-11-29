@@ -22,13 +22,9 @@ class CreatePostsTable extends Migration
 
             // make the rest of the columns...
             $table->string('feed');
-            // $table->string('source_id');
             $table->string('uri')->unique();
             $table->timestamp('source_time');
             $table->string('text');
-            // 
-            // // make compound unique columns 'feed' and 'source_id'
-            // $table->unique(['feed', 'source_id']);
         });
     }
 
