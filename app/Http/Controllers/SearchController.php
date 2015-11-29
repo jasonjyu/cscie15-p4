@@ -50,8 +50,6 @@ class SearchController extends Controller
                 $posts[] = $this->createPostInstagram($insta);
             }
 
-            dump($posts);
-
             // return the search results page
             $view = view('search.index')->with('posts', $posts)
                 ->with('twitter_results', $twitter_results)
