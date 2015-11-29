@@ -46,9 +46,11 @@ class SearchController extends Controller
             }
 
             // convert Instagram results to \App\Post models
-            foreach ($instagram_results as $media) {
-                $posts[] = $this->createPostInstagram($media);
+            foreach ($instagram_results as $insta) {
+                $posts[] = $this->createPostInstagram($insta);
             }
+
+            dump($posts);
 
             // return the search results page
             $view = view('search.index')->with('posts', $posts)
@@ -122,67 +124,55 @@ class SearchController extends Controller
     protected function createPostTwitter($tweet)
     {
         // // check if post was already created
-        // $feed = \App\Post::FEED_TWITTER;
-        // $source_id = $tweet->id_str;
-        // $post = \App\Post::where(function($query) use($feed, $source_id) {
-        //     $query->where('feed', '=', $feed)
-        //           ->where('source_id', '=', $source_id);
-        // })->first();
+        // $uri = \Twitter::linkTweet($tweet);
+        // $post = \App\Post::where('uri', '=', $uri)->first();
         //
         // // create post if needed
         // if (!$post) {
         //     $post = new \App\Post();
-        //     $post->feed = $feed;
-        //     $post->source_id = $source_id;
+        //     $post->feed = \App\Post::FEED_TWITTER;
+        //     $post->uri = $uri;
         //     $post->source_time = \Carbon\Carbon::createFromFormat(
-        //         'D M d H:i:s P Y', $tweet->created_at);
-        //     $post->uri = \Twitter::linkTweet($tweet);
+        //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         //     $post->text = \Twitter::linkify($tweet);
         // }
         $post = new \App\Post();
         $post->feed = \App\Post::FEED_TWITTER;
-        $post->source_id = $tweet->id_str;
+        $post->uri = \Twitter::linkTweet($tweet);
         $post->source_time = \Carbon\Carbon::createFromFormat(
             'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
-        $post->uri = \Twitter::linkTweet($tweet);
         $post->text = \Twitter::linkify($tweet);
 
         return $post;
     }
 
     /**
-     * Creates an \App\Post model object from specified Instagram $media object.
+     * Creates an \App\Post model object from specified Instagram $insta object.
      *
-     * @param  object $media
+     * @param  object $insta
      * @return object
      */
-    protected function createPostInstagram($media)
+    protected function createPostInstagram($insta)
     {
         // // check if post was already created
-        // $feed = \App\Post::FEED_INSTAGRAM;
-        // $source_id = $media->id;
-        // $post = \App\Post::where(function($query) use($feed, $source_id) {
-        //     $query->where('feed', '=', $feed)
-        //           ->where('source_id', '=', $source_id);
-        // })->first();
+        // $uri = $insta->link;
+        // $post = \App\Post::where('uri', '=', $uri)->first();
         //
         // // create post if needed
         // if (!$post) {
         //     $post = new \App\Post();
-        //     $post->feed = $feed;
-        //     $post->source_id = $source_id;
+        //     $post->feed = \App\Post::FEED_INSTAGRAM;
+        //     $post->uri = $uri;
         //     $post->source_time = \Carbon\Carbon::createFromTimestamp(
-        //         $media->created_time);
-        //     $post->uri = $media->link;
-        //     $post->text = $media->caption ? $media->caption->text : '';
+        //         $insta->created_time)->toDateTimeString();
+        //     $post->text = $insta->caption ? $insta->caption->text : '';
         // }
         $post = new \App\Post();
         $post->feed = \App\Post::FEED_INSTAGRAM;
-        $post->source_id = $media->id;
+        $post->uri = $insta->link;
         $post->source_time = \Carbon\Carbon::createFromTimestamp(
-            $media->created_time)->toDateTimeString();
-        $post->uri = $media->link;
-        $post->text = $media->caption ? $media->caption->text : '';
+            $insta->created_time)->toDateTimeString();
+        $post->text = $insta->caption ? $insta->caption->text : '';
 
         return $post;
     }
