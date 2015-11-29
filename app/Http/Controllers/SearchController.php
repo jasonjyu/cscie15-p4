@@ -23,9 +23,8 @@ class SearchController extends Controller
         } else {
             // validate request
             $this->validate(
-                $request,
-                [
-                    'term' => 'required'
+                $request, [
+                    'term' => 'required',
                 ]);
 
             // parse request
@@ -38,8 +37,21 @@ class SearchController extends Controller
             $twitter_results = $this->searchTwitter($term);
             $instagram_results = $this->searchInstagram($term);
 
+            // convert results to \App\Post models
+            $posts = array();
+
+            // convert Twitter results to \App\Post models
+            foreach ($twitter_results as $tweet) {
+                $posts[] = $this->createPostTwitter($tweet);
+            }
+
+            // convert Instagram results to \App\Post models
+            foreach ($instagram_results as $media) {
+                $posts[] = $this->createPostInstagram($media);
+            }
+
             // return the search results page
-            $view = view('search.index')
+            $view = view('search.index')->with('posts', $posts)
                 ->with('twitter_results', $twitter_results)
                 ->with('instagram_results', $instagram_results);
         }
@@ -78,12 +90,14 @@ class SearchController extends Controller
      */
     protected function searchTwitter($hashtag)
     {
-        $search_results = \Twitter::getSearch(['q' => $hashtag, 'lang' => 'en',
-            'result_type' => 'popular']);
+        $search_results = \Twitter::getSearch([
+            'q' => $hashtag,
+            'lang' => 'en',
+            'result_type' => 'popular',
+        ]);
 
         return $search_results->statuses;
     }
-
 
     /**
      * Searches Instagram for the specified $hashtag.
@@ -97,5 +111,79 @@ class SearchController extends Controller
         $search_results = \Instagram::getTagMedia($hashtag, 50);
 
         return $search_results->data;
+    }
+
+    /**
+     * Creates an \App\Post model object from specified Twitter $tweet object.
+     *
+     * @param  object $tweet
+     * @return object
+     */
+    protected function createPostTwitter($tweet)
+    {
+        // // check if post was already created
+        // $feed = \App\Post::FEED_TWITTER;
+        // $source_id = $tweet->id_str;
+        // $post = \App\Post::where(function($query) use($feed, $source_id) {
+        //     $query->where('feed', '=', $feed)
+        //           ->where('source_id', '=', $source_id);
+        // })->first();
+        //
+        // // create post if needed
+        // if (!$post) {
+        //     $post = new \App\Post();
+        //     $post->feed = $feed;
+        //     $post->source_id = $source_id;
+        //     $post->source_time = \Carbon\Carbon::createFromFormat(
+        //         'D M d H:i:s P Y', $tweet->created_at);
+        //     $post->uri = \Twitter::linkTweet($tweet);
+        //     $post->text = \Twitter::linkify($tweet);
+        // }
+        $post = new \App\Post();
+        $post->feed = \App\Post::FEED_TWITTER;
+        $post->source_id = $tweet->id_str;
+        $post->source_time = \Carbon\Carbon::createFromFormat(
+            'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
+        $post->uri = \Twitter::linkTweet($tweet);
+        $post->text = \Twitter::linkify($tweet);
+
+        return $post;
+    }
+
+    /**
+     * Creates an \App\Post model object from specified Instagram $media object.
+     *
+     * @param  object $media
+     * @return object
+     */
+    protected function createPostInstagram($media)
+    {
+        // // check if post was already created
+        // $feed = \App\Post::FEED_INSTAGRAM;
+        // $source_id = $media->id;
+        // $post = \App\Post::where(function($query) use($feed, $source_id) {
+        //     $query->where('feed', '=', $feed)
+        //           ->where('source_id', '=', $source_id);
+        // })->first();
+        //
+        // // create post if needed
+        // if (!$post) {
+        //     $post = new \App\Post();
+        //     $post->feed = $feed;
+        //     $post->source_id = $source_id;
+        //     $post->source_time = \Carbon\Carbon::createFromTimestamp(
+        //         $media->created_time);
+        //     $post->uri = $media->link;
+        //     $post->text = $media->caption ? $media->caption->text : '';
+        // }
+        $post = new \App\Post();
+        $post->feed = \App\Post::FEED_INSTAGRAM;
+        $post->source_id = $media->id;
+        $post->source_time = \Carbon\Carbon::createFromTimestamp(
+            $media->created_time)->toDateTimeString();
+        $post->uri = $media->link;
+        $post->text = $media->caption ? $media->caption->text : '';
+
+        return $post;
     }
 }

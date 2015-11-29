@@ -30,6 +30,9 @@ specific styesheets.
     {{-- if there are errors, then print them out --}}
     @include('layouts.errors')
 
+    {{-- if $posts is not empty, then display the posts --}}
+    @include('layouts.posts')
+
     {{-- if $twitter_results is not empty, then display the tweets --}}
     @if (!empty($twitter_results))
         <div class='twitter-results'>
@@ -47,20 +50,20 @@ specific styesheets.
         </div>
     @endif
 
-    {{-- if $instagram_results is not empty, then display the posts --}}
+    {{-- if $instagram_results is not empty, then display the media --}}
     @if (!empty($instagram_results))
         <div class='instagram-results'>
             <h3>Instagram</h3>
-            @foreach ($instagram_results as $post)
+            @foreach ($instagram_results as $media)
                 <div class='post'>
-                    @if (isset($post->caption))
-                        {{ $post->caption->text }}
+                    @if (isset($media->caption))
+                        {{ $media->caption->text }}
                     @else
-                        {{ $post->link }}
+                        {{ $media->link }}
                     @endif
                     <br/>
-                    <a href='{{ $post->link }}' target='_blank'>
-                        {{ Carbon\Carbon::createFromTimestamp($post->created_time) }}
+                    <a href='{{ $media->link }}' target='_blank'>
+                        {{ Carbon\Carbon::createFromTimestamp($media->created_time) }}
                     </a>
                 </div>
             @endforeach
