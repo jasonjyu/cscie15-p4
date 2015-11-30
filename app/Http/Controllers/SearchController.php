@@ -134,12 +134,25 @@ class SearchController extends Controller
         //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         //     $post->text = \Twitter::linkify($tweet);
         // }
+        //
+        // create post
         $post = new \App\Post();
         $post->feed = \App\Post::FEED_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
         $post->source_time = \Carbon\Carbon::createFromFormat(
             'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         $post->text = \Twitter::linkify($tweet);
+
+        // add media if available
+        if (isset($tweet->entities->media)) {
+            foreach ($tweet->entities->media as $tweet_medium) {
+                $medium = new \App\Medium();
+                $medium->type = $tweet_medium->type;
+                $medium->uri = $tweet_medium->media_url_https;
+                // $post->media()->save($medium);
+                $post->media_uri = $tweet_medium->media_url_https;
+            }
+        }
 
         return $post;
     }
@@ -165,12 +178,21 @@ class SearchController extends Controller
         //         $insta->created_time)->toDateTimeString();
         //     $post->text = $insta->caption ? $insta->caption->text : '';
         // }
+        //
+        // create post
         $post = new \App\Post();
         $post->feed = \App\Post::FEED_INSTAGRAM;
         $post->uri = $insta->link;
         $post->source_time = \Carbon\Carbon::createFromTimestamp(
             $insta->created_time)->toDateTimeString();
         $post->text = $insta->caption ? $insta->caption->text : '';
+
+        // add media if available
+        $medium = new \App\Medium();
+        $medium->type = $insta->type;
+        $medium->uri = $insta->images->standard_resolution->url;
+        // $post->media()->save($medium);
+        $post->media_uri = $insta->images->standard_resolution->url;
 
         return $post;
     }

@@ -3,7 +3,12 @@
 }
 
 .post {
-    padding: 5px;
+    padding: 25px;
     text-align: left;
     word-wrap: break-word;
+}
+
+.media img {
+    display: block;
+    margin: auto;
 }

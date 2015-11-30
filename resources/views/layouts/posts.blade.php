@@ -3,6 +3,11 @@
     <div class='posts'>
         @foreach ($posts as $post)
             <div class='post'>
+                @if (isset($post->media_uri))
+                    <div class='media'>
+                        <img src='{{ $post->media_uri }}'/>
+                    </div>
+                @endif
                 {!! $post->text !!}
                 <br/>
                 <a href='{{ $post->uri }}' target='_blank'>

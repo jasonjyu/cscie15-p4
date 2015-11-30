@@ -21,9 +21,9 @@ class CreateHashtagUserTable extends Migration
             $table->timestamps();
 
             // `hashtag_id` and `user_id` will be foreign keys, so they have to
-            //  be unsigned
-            //  Note how the field names here correspond to the tables they will
-            //  connect...
+            // be unsigned
+            // Note how the field names here correspond to the tables they will
+            // connect...
             // `hashtag_id` will reference the `hashtags` table and `user_id`
             // will reference the `users` table
             $table->integer('hashtag_id')->unsigned();
