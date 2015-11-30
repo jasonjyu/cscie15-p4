@@ -146,9 +146,9 @@ class SearchController extends Controller
         // add media if available
         if (isset($tweet->entities->media)) {
             foreach ($tweet->entities->media as $tweet_medium) {
-                $medium = new \App\Medium();
-                $medium->type = $tweet_medium->type;
-                $medium->uri = $tweet_medium->media_url_https;
+                // $medium = new \App\Medium();
+                // $medium->type = $tweet_medium->type;
+                // $medium->uri = $tweet_medium->media_url_https;
                 // $post->media()->save($medium);
                 $post->media_uri = $tweet_medium->media_url_https;
             }
@@ -188,9 +188,9 @@ class SearchController extends Controller
         $post->text = $insta->caption ? $insta->caption->text : '';
 
         // add media if available
-        $medium = new \App\Medium();
-        $medium->type = $insta->type;
-        $medium->uri = $insta->images->standard_resolution->url;
+        // $medium = new \App\Medium();
+        // $medium->type = $insta->type;
+        // $medium->uri = $insta->images->standard_resolution->url;
         // $post->media()->save($medium);
         $post->media_uri = $insta->images->standard_resolution->url;
 
