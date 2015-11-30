@@ -33,7 +33,7 @@ class SearchController extends Controller
             // save off hashtag data
             $this->saveHashtag($term);
 
-            // search social media feeds for the specified hashtag
+            // search social media provider feeds for the specified hashtag
             $twitter_results = $this->searchTwitter($term);
             $instagram_results = $this->searchInstagram($term);
 
@@ -128,7 +128,7 @@ class SearchController extends Controller
         // // create post if needed
         // if (!$post) {
         //     $post = new \App\Post();
-        //     $post->feed = \App\Post::FEED_TWITTER;
+        //     $post->provider = \App\Post::PROVIDER_TWITTER;
         //     $post->uri = $uri;
         //     $post->source_time = \Carbon\Carbon::createFromFormat(
         //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
@@ -137,7 +137,7 @@ class SearchController extends Controller
         //
         // create post
         $post = new \App\Post();
-        $post->feed = \App\Post::FEED_TWITTER;
+        $post->provider = \App\Post::PROVIDER_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
         $post->source_time = \Carbon\Carbon::createFromFormat(
             'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
@@ -172,7 +172,7 @@ class SearchController extends Controller
         // // create post if needed
         // if (!$post) {
         //     $post = new \App\Post();
-        //     $post->feed = \App\Post::FEED_INSTAGRAM;
+        //     $post->provider = \App\Post::PROVIDER_INSTAGRAM;
         //     $post->uri = $uri;
         //     $post->source_time = \Carbon\Carbon::createFromTimestamp(
         //         $insta->created_time)->toDateTimeString();
@@ -181,7 +181,7 @@ class SearchController extends Controller
         //
         // create post
         $post = new \App\Post();
-        $post->feed = \App\Post::FEED_INSTAGRAM;
+        $post->provider = \App\Post::PROVIDER_INSTAGRAM;
         $post->uri = $insta->link;
         $post->source_time = \Carbon\Carbon::createFromTimestamp(
             $insta->created_time)->toDateTimeString();

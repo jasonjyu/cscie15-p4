@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
 
             // make the rest of the columns...
-            $table->string('feed');
+            $table->string('provider');
             $table->string('uri')->unique();
             $table->timestamp('source_time');
             $table->string('text');
