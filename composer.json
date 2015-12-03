@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "codezero/twitter": "^1.1",
         "thujohn/twitter": "^2.1",
-        "vinkla/instagram": "^3.1"
+        "vinkla/instagram": "^3.1",
+        "simexis/oembed": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

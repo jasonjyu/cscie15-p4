@@ -165,6 +165,11 @@ return [
           */
         Vinkla\Instagram\InstagramServiceProvider::class,
 
+        /*
+         * simexis/oembed Service Providers...
+         */
+        Simexis\Oembed\OembedServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +233,11 @@ return [
          * vinkla/instagram class aliases...
          */
         'Instagram' => Vinkla\Instagram\Facades\Instagram::class,
+
+        /*
+         * simexis/oembed class aliases...
+         */
+        'Oembed'    => Simexis\Oembed\OembedFacade::class,
 
     ],
 
