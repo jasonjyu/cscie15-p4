@@ -4,7 +4,13 @@
         @foreach ($posts as $post)
             <div class='post'>
                 @if ($post->provider == \App\Post::PROVIDER_TWITTER)
-                    {!! Oembed::get($post->uri)->code !!}
+                    <!-- {!! Oembed::cache($post->uri, [])->code !!} -->
+                    <iframe class='twitter-tweet'
+                            src='http://twitframe.com/show?url={{ urlencode($post->uri) }}'
+                            frameborder='0'
+                            width='500'
+                            height='720'>
+                    </iframe>
                 @elseif ($post->provider == \App\Post::PROVIDER_INSTAGRAM)
                     <iframe class='instagram-media'
                             src='{{ $post->uri }}embed/captioned/'

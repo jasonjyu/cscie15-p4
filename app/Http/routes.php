@@ -100,13 +100,22 @@ if (App::environment('local')) {
      * Registers the GET route to the thujohn/twitter package test page.
      */
     Route::get('/twitter/thujohn', function () {
-        $search_results = Twitter::getSearch(['q' => 'taylorswift',
-            'lang' => 'en', 'result_type' => 'popular']);
+        $search_results = Twitter::getSearch([
+            'q'           => 'taylorswift',
+            'lang'        => 'en',
+            'result_type' => 'popular'
+        ]);
         dump($search_results);
         echo '<h1>Tweets</h1>';
         foreach ($search_results->statuses as $tweet) {
-            $info = Oembed::get(Twitter::linkTweet($tweet));
-            echo $info->code;
+            // $info = Oembed::cache(Twitter::linkTweet($tweet), []);
+            // echo $info->code;
+            echo '<iframe class="twitter-tweet" ';
+            echo '        src="http://twitframe.com/show?url=',
+                urlencode(Twitter::linkTweet($tweet)), '"';
+            echo '        frameborder="0"';
+            echo '        height="480">';
+            echo '</iframe>';
             // echo Twitter::linkify($tweet),
             //     '<br/><a href=',
             //     Twitter::linkTweet($tweet), '>',
@@ -166,9 +175,12 @@ if (App::environment('local')) {
         echo '        obj.style.height = obj.contentWindow.document.body.scrollHeight + "px";';
         echo '    }';
         echo '</script>';
-        echo '<iframe class="instagram-media" src="https://www.instagram.com/p/9h8em8jvCQ/embed/captioned/" frameborder="0" width="640" height="740"></iframe>';
-        echo '<iframe class="instagram-media" src="https://www.instagram.com/p/9h8POJjvB2/embed/captioned/" frameborder="0" width="640" height="740"></iframe>';
+        echo '<iframe class="instagram-media" src="https://www.instagram.com/p/9h8em8jvCQ/embed/captioned/" frameborder="0" width="500" height="720"></iframe>';
+        echo '<iframe class="instagram-media" src="https://www.instagram.com/p/9h8POJjvB2/embed/captioned/" frameborder="0" width="500" height="720"></iframe>';
         echo '<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-0" src="https://www.instagram.com/p/tsxp1hhQTG/embed/captioned/?v=6" allowtransparency="true" frameborder="0" height="848" data-instgrm-payload-id="instagram-media-payload-0" scrolling="no" style="background-color: rgb(255, 255, 255); border: 0px; margin: 1px; max-width: 658px; width: calc(100% - 2px); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 1px 0px, rgba(0, 0, 0, 0.14902) 0px 1px 10px 0px; display: block; padding: 0px;"></iframe>';
+        echo '<iframe class="twitter-tweet" src="http://twitframe.com/show?url=', urlencode('https://twitter.com/vogueaustralia/status/670555453898645504'), '" frameborder="0" width="500" height="720"></iframe>';
+        echo '<iframe class="twitter-tweet" src="http://twitframe.com/show?url=', urlencode('https://twitter.com/PerezHilton/status/671731077539467265'), '" frameborder="0" width="500" height="720"></iframe>';
+        echo '<iframe class="twitter-tweet" src="http://twitframe.com/show?url=', urlencode('https://twitter.com/ANZStadium/status/670454514302906368'), '" frameborder="0" width="500" height="720"></iframe>';
         echo '<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/TaylorSwift?src=hash">#TaylorSwift</a> singing <a href="https://twitter.com/hashtag/LoveStory?src=hash">#LoveStory</a> <a href="https://twitter.com/hashtag/voguegoldenticket?src=hash">#voguegoldenticket</a> <a href="https://twitter.com/hashtag/voguexsamsung?src=hash">#voguexsamsung</a> <a href="https://twitter.com/SamsungAU">@samsungau</a> <a href="https://t.co/sel85IZ1Ev">pic.twitter.com/sel85IZ1Ev</a></p>&mdash; Vogue Australia (@vogueaustralia) <a href="https://twitter.com/vogueaustralia/status/670555453898645504">November 28, 2015</a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
         echo '<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/TaylorSwift?src=hash">#TaylorSwift</a> isn&#39;t the only celeb with awkward dance moves, and we&#39;ve got the proof!! <a href="https://t.co/dxyFmdRyw3">https://t.co/dxyFmdRyw3</a> <a href="https://t.co/bhx40OMiyp">pic.twitter.com/bhx40OMiyp</a></p>&mdash; Perez Hilton (@PerezHilton) <a href="https://twitter.com/PerezHilton/status/671731077539467265">December 1, 2015</a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
         echo '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">SO many awesome outfits already on display <a href="https://twitter.com/ANZStadium">@ANZStadium</a>! Swifties are the best! <a href="https://twitter.com/hashtag/1989TourSydney?src=hash">#1989TourSydney</a> <a href="https://twitter.com/hashtag/TaylorSwift?src=hash">#TaylorSwift</a> <a href="https://t.co/Wnz9wsjFDw">pic.twitter.com/Wnz9wsjFDw</a></p>&mdash; ANZ Stadium (@ANZStadium) <a href="https://twitter.com/ANZStadium/status/670454514302906368">November 28, 2015</a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
@@ -181,15 +193,15 @@ if (App::environment('local')) {
      * Registers the GET route to the jooorooo/oembed package test page.
      */
     Route::get('/oembed/jooorooo', function () {
-        $info = Oembed::get('https://twitter.com/vogueaustralia/statuses/670555453898645504');
+        $info = Oembed::cache('https://twitter.com/vogueaustralia/statuses/670555453898645504', []);
         echo $info->code;
-        $info = Oembed::get('https://twitter.com/PerezHilton/statuses/671731077539467265');
+        $info = Oembed::cache('https://twitter.com/PerezHilton/statuses/671731077539467265', []);
         echo $info->code;
-        $info = Oembed::get('https://twitter.com/ANZStadium/statuses/670454514302906368');
+        $info = Oembed::cache('https://twitter.com/ANZStadium/statuses/670454514302906368', []);
         echo $info->code;
-        $info = Oembed::get('https://www.instagram.com/p/9h8POJjvB2/');
+        $info = Oembed::cache('https://www.instagram.com/p/9h8POJjvB2/', []);
         echo $info->code;
-        $info = Oembed::get('https://www.instagram.com/p/9h8em8jvCQ/');
+        $info = Oembed::cache('https://www.instagram.com/p/9h8em8jvCQ/', []);
         echo $info->code;
         echo '<br>';
 

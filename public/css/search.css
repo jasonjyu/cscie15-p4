@@ -3,12 +3,12 @@
 }
 
 .post {
-    padding: 25px;
     text-align: left;
     word-wrap: break-word;
 }
 
 .media img {
     display: block;
+    padding: 25px;
     margin: auto;
 }
