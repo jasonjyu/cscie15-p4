@@ -28,7 +28,8 @@ class SearchController extends Controller
                 ]);
 
             // parse request
-            $term = $request->term;
+            $term = strtolower(preg_replace('/\s+/', '',
+                $request->term));  // remove whitespace, convert to lowercase
 
             // save off hashtag data
             $this->saveHashtag($term);
@@ -38,7 +39,7 @@ class SearchController extends Controller
             $instagram_results = $this->searchInstagram($term);
 
             // convert results to \App\Post models
-            $posts = array();
+            $posts = [];
 
             // convert Twitter results to \App\Post models
             foreach ($twitter_results as $tweet) {
@@ -91,8 +92,8 @@ class SearchController extends Controller
     protected function searchTwitter($hashtag)
     {
         $search_results = \Twitter::getSearch([
-            'q' => $hashtag,
-            'lang' => 'en',
+            'q'           => $hashtag,
+            'lang'        => 'en',
             'result_type' => 'popular',
         ]);
 
