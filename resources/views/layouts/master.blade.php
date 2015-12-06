@@ -50,7 +50,7 @@
 
                 {{-- Show links based on if user is authenticated --}}
                 @if (Auth::check())
-                    <li><a class='btn btn-sm btn-default' href='/logout' data-ajax='false'>Logout</a></li>
+                    <li><a class='btn btn-sm btn-default' href='/logout' data-ajax='false'>Logout {{ $user->name }}</a></li>
                 @else
                     <li><a class='btn btn-sm btn-default' href='/login' data-ajax='false'>Login</a></li>
                 @endif
