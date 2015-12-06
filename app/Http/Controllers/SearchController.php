@@ -144,7 +144,7 @@ class SearchController extends Controller
             'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         $post->text = \Twitter::linkify($tweet);
 
-        // cache oembed request
+        // cache oEmbed request
         \Oembed::cache($post->uri, []);
 
         // add media if available
