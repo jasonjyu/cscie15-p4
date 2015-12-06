@@ -1,5 +1,7 @@
-.twitter-results, .instagram-results {
-    text-align: left;
+.ui-input-search {
+    margin: auto;
+    min-width: 320px;
+    width: 50%;
 }
 
 .post {
@@ -11,4 +13,8 @@
     display: block;
     padding: 25px;
     margin: auto;
+}
+
+.twitter-results, .instagram-results {
+    text-align: left;
 }

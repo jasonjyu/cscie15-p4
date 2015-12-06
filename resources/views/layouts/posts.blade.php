@@ -2,21 +2,19 @@
 @if (!empty($posts))
     <div class='posts'>
         @foreach ($posts as $post)
-            <div class='post'>
+            <span class='post'>
                 @if ($post->provider == \App\Post::PROVIDER_TWITTER)
-                    {!! Oembed::cache($post->uri, [])->code !!}
-                    <!-- <iframe class='twitter-tweet'
+                    <!-- {!! Oembed::cache($post->uri, [])->code !!} -->
+                    <iframe class='twitter-tweet'
                             src='http://twitframe.com/show?url={{ urlencode($post->uri) }}'
                             frameborder='0'
-                            width='500'
-                            height='720'>
-                    </iframe> -->
+                            height='480'>
+                    </iframe>
                 @elseif ($post->provider == \App\Post::PROVIDER_INSTAGRAM)
                     <iframe class='instagram-media'
                             src='{{ $post->uri }}embed/captioned/'
                             frameborder='0'
-                            width='500'
-                            height='720'>
+                            height='480'>
                     </iframe>
                 @else
                     @if (isset($post->media_uri))
@@ -31,7 +29,7 @@
                     </a>
                     {{ $post->feed }}
                 @endif
-            </div>
+            </span>
         @endforeach
     </div>
 @endif

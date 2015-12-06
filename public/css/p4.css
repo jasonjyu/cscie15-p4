@@ -28,8 +28,8 @@ footer {
 /* End Sticky Footer */
 
 .container {
-    max-width: 720px;
     min-width: 320px;
+    width: 100%;
 }
 
 .content {
@@ -81,4 +81,15 @@ body {
 
 hr {
     border: 1px solid;
+    width: 75%;
+}
+
+form {
+    margin: auto;
+    width: 50%;
+}
+
+form button[type=submit] {
+    margin: auto;
+    width: 50%;
 }
