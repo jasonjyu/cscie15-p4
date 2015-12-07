@@ -29,7 +29,7 @@ specific styesheets.
     @else
         <p>
             You have not searched any hashtags.
-            Click <a href='/search'>here</a> to search.
+            Click <a href='/search' data-ajax='false'>here</a> to search.
         </p>
     @endif
 @stop
