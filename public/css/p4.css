@@ -28,7 +28,7 @@ footer {
 /* End Sticky Footer */
 
 .container {
-    min-width: 320px;
+    min-width: 480px;
     width: 100%;
 }
 
@@ -92,5 +92,6 @@ form {
 
 form button[type=submit] {
     margin: auto;
-    width: 50%;
+    min-width: 100px;
+    width: 25%;
 }

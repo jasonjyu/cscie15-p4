@@ -3,13 +3,13 @@
 <head>
     <title>
         {{--
-        Yield the title if it exists, otherwise default to 'TagGregator'
+        Yield the title if it exists, otherwise default to 'HashTagGregator'
         --}}
-        @yield('title','TagGregator')
+        @yield('title','HashTagGregator')
     </title>
 
     <meta charset='utf-8'/>
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'/>
+    <meta name='viewport' content='maximum-scale=1'/>
 
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet'/>
     <link href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/readable/bootstrap.min.css' rel='stylesheet'/>
@@ -39,7 +39,7 @@
         @endif
 
         <header>
-            <h1>TagGregator</h1>
+            <h1>HashTagGregator</h1>
         </header>
 
         <nav>
