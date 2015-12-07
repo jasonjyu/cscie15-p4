@@ -39,7 +39,7 @@
         @endif
 
         <header>
-            <h1>HashTagGregator</h1>
+            <h1>TagGregator</h1>
         </header>
 
         <nav>

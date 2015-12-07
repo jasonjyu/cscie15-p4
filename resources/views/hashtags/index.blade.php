@@ -16,16 +16,21 @@ specific styesheets.
 @section('content')
     <h2>Searched Hashtags</h2>
 
-    {{-- if $hashtags is not empty, then print out the hashtag terms --}}
-    @if (!empty($hashtags))
+    {{-- if there are $hashtags, then print out the hashtag terms --}}
+    @if (count($hashtags) > 0)
         <div class='hashtags'>
             @foreach ($hashtags as $hashtag)
                 <a href='/search?term={{ $hashtag->term }}' data-ajax='false'>
-                    {{ $hashtag->term }}
+                    #{{ $hashtag->term }}
                 </a>
                 <br/>
             @endforeach
         </div>
+    @else
+        <p>
+            You have not searched any hashtags.
+            Click <a href='/search'>here</a> to search.
+        </p>
     @endif
 @stop
 

@@ -13,12 +13,12 @@
 
         <div class='form-group'>
             <label for='email'>Email</label>
-            <input type='text' name='email' id='email' value='{{ old('email') }}' autofocus>
+            <input type='text' name='email' id='email' value='{{ old('email') }}' autofocus/>
         </div>
 
         <div class='form-group'>
             <label for='password'>Password</label>
-            <input type='password' name='password' id='password' value='{{ old('password') }}'>
+            <input type='password' name='password' id='password' value='{{ old('password') }}'/>
         </div>
 
         <div class='form-group'>

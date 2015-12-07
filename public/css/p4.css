@@ -68,10 +68,11 @@ nav ul li {
 ul.errors {
     color: red;
     list-style-type: none;
-    margin: 0;
+    margin: auto;
     margin-top: 5px;
     padding: 0;
     text-align: left;
+    width: 50%;
 }
 /* End Form Errors */
 

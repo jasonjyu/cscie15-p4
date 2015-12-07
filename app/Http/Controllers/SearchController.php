@@ -52,7 +52,9 @@ class SearchController extends Controller
             }
 
             // return the search results page
-            $view = view('search.index')->with('posts', $posts);
+            $view = view('search.index')
+                ->with('term', $term)
+                ->with('posts', $posts);
                 // ->with('twitter_results', $twitter_results)
                 // ->with('instagram_results', $instagram_results);
         }
