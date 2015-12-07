@@ -3,9 +3,9 @@
 <head>
     <title>
         {{--
-        Yield the title if it exists, otherwise default to 'HashTagGregator'
+        Yield the title if it exists, otherwise default to 'TagGregator'
         --}}
-        @yield('title','HashTagGregator')
+        @yield('title','TagGregator')
     </title>
 
     <meta charset='utf-8'/>
