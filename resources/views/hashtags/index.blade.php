@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    HashTagGregator - Searched Hashtags
+    TagGregator - Searched Hashtags
 @stop
 
 {{--
