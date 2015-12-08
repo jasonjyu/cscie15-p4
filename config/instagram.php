@@ -38,15 +38,15 @@ return [
     'connections' => [
 
         'main' => [
-            'client_id' => function_exists('env') ? env('INSTAGRAM_CLIENT_ID', '') : '',
+            'client_id'     => function_exists('env') ? env('INSTAGRAM_CLIENT_ID', '') : '',
             'client_secret' => function_exists('env') ? env('INSTAGRAM_CLIENT_SECRET', '') : '',
-            'callback_url' => function_exists('env') ? env('INSTAGRAM_CALLBACK_URL', '') : '',
+            'callback_url'  => function_exists('env') ? env('INSTAGRAM_CALLBACK_URL', '') : '',
         ],
 
         'alternative' => [
-            'client_id' => 'your-client-id',
+            'client_id'     => 'your-client-id',
             'client_secret' => null,
-            'callback_url' => null,
+            'callback_url'  => null,
         ],
 
     ],
