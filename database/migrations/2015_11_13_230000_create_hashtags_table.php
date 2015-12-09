@@ -21,7 +21,7 @@ class CreateHashtagsTable extends Migration
             $table->timestamps();
 
             // make the rest of the columns...
-            $table->string('term')->unique();
+            $table->string('term');
         });
     }
 

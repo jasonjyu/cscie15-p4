@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);
         $this->call(HashtagsTableSeeder::class);
-        $this->call(HashtagUserTableSeeder::class);
 
         Model::reguard();
     }

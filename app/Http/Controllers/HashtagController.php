@@ -23,7 +23,9 @@ class HashtagController extends Controller
         // otherwise, do not display any hashtags
         if ($user) {
             // return the Hashtags page with the user's saved hashtags
-            $view = view('hashtags.index')->with('hashtags', $user->hashtags);
+            $hashtags = \App\Hashtag::where('user_id', '=', $user->id)->orderBy(
+                'term','ASC')->get();
+            $view = view('hashtags.index')->with('hashtags', $hashtags);
         } else {
             // return the Hashtags page without any hashtags
             $view = view('hashtags.index');

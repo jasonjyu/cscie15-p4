@@ -11,18 +11,36 @@ class HashtagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $hashtag_terms = [
-            'taylorswift',
-            'carrieunderwood',
-            'katyperry',
-            'adele',
-            'mileycyrus',
+        // first, create an array of all the users we want to associate hashtags
+        // with
+        // the *key* will be the user email and the *value* will be an array of
+        // hashtags
+        $users =[
+            'jill@harvard.edu' => [
+                'taylorswift',
+                'katyperry',
+                'mileycyrus',
+            ],
+            'jamal@harvard.edu' => [
+                'adele',
+                'taylorswift',
+                'carrieunderwood',
+            ],
         ];
 
-        foreach ($hashtag_terms as $term) {
-            $hashtag = new \App\Hashtag();
-            $hashtag->term = $term;
-            $hashtag->save();
+        // now loop through the above array, creating a new hashtag and
+        // association with the user
+        foreach ($users as $email => $hashtag_terms) {
+            // first get the user
+            $user = \App\User::where('email', 'like', $email)->first();
+
+            // now loop through each hashtag and associate it with this user
+            foreach ($hashtag_terms as $term) {
+                $hashtag = new \App\Hashtag();
+                $hashtag->term = $term;
+                $hashtag->user_id = $user->id;
+                $hashtag->save();
+            }
         }
     }
 }

@@ -16,10 +16,9 @@ class Hashtag extends Model
     /**
      * Defines the relationship between this model and the User model.
      */
-    public function users()
+    public function user()
     {
-        // withTimestamps() will ensure the pivot table has its
-        // created_at/updated_at fields automatically maintained
-        return $this->belongsToMany('\App\User')->withTimestamps();
+        // define many-to-one relationship (a hashtag belongs to a user)
+        return $this->belongsTo('\App\User');
     }
 }

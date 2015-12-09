@@ -41,7 +41,6 @@ class HashtagUserTableSeeder extends Seeder
                 // associate this hashtag to this user
                 $user->hashtags()->save($hashtag);
             }
-
         }
     }
 }
