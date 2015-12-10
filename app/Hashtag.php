@@ -11,7 +11,7 @@ class Hashtag extends Model
      *
      * @var array
      */
-    protected $fillable = ['term'];
+    protected $fillable = ['term', 'user_id'];
 
     /**
      * Defines the relationship between this model and the User model.
