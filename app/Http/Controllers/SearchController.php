@@ -71,12 +71,14 @@ class SearchController extends Controller
      */
     protected function saveHashtag($term)
     {
-        // get the user id logged in
-        $user_id = \Auth::id();
+        // if a user is logged, then associate the user with the hashtag
+        if (\Auth::check()) {
+            // get the user id logged in
+            $user_id = \Auth::id();
 
-        // get hashtag corresponding to the specified $term or create if it
-        // does not exist
-        $hashtag = \App\Hashtag::firstOrCreate(compact('term', 'user_id'));
+            // create a hashtag associated with the user if it does not exist
+            \App\Hashtag::firstOrCreate(compact('term', 'user_id'));
+        }
     }
 
     /**
