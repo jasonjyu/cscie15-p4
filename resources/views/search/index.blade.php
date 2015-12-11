@@ -39,23 +39,6 @@ specific styesheets.
     {{-- if $posts is not empty, then display the posts --}}
     @include('layouts.posts')
 
-    {{-- if $twitter_results is not empty, then display the tweets --}}
-    @if (!empty($twitter_results))
-        <div class='twitter-results'>
-            <h4>Twitter</h4>
-            @foreach ($twitter_results as $tweet)
-                <div class='post'>
-                    {!! Twitter::linkify($tweet) !!}
-                    <br/>
-                    <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
-                        {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
-                           $tweet->created_at) }}
-                    </a>
-                </div>
-            @endforeach
-        </div>
-    @endif
-
     {{-- if $instagram_results is not empty, then display the media --}}
     @if (!empty($instagram_results))
         <div class='instagram-results'>
@@ -70,6 +53,23 @@ specific styesheets.
                     <br/>
                     <a href='{{ $media->link }}' target='_blank'>
                         {{ Carbon\Carbon::createFromTimestamp($media->created_time) }}
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    @endif
+
+    {{-- if $twitter_results is not empty, then display the tweets --}}
+    @if (!empty($twitter_results))
+        <div class='twitter-results'>
+            <h4>Twitter</h4>
+            @foreach ($twitter_results as $tweet)
+                <div class='post'>
+                    {!! Twitter::linkify($tweet) !!}
+                    <br/>
+                    <a href='{{ Twitter::linkTweet($tweet) }}' target='_blank'>
+                        {{ Carbon\Carbon::createFromFormat('D M d H:i:s P Y',
+                           $tweet->created_at) }}
                     </a>
                 </div>
             @endforeach

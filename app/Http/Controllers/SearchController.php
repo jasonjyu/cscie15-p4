@@ -41,22 +41,22 @@ class SearchController extends Controller
             // convert results to \App\Post models
             $posts = [];
 
-            // convert Twitter results to \App\Post models
-            foreach ($twitter_results as $tweet) {
-                $posts[] = $this->createPostTwitter($tweet);
-            }
-
             // convert Instagram results to \App\Post models
             foreach ($instagram_results as $insta) {
                 $posts[] = $this->createPostInstagram($insta);
+            }
+
+            // convert Twitter results to \App\Post models
+            foreach ($twitter_results as $tweet) {
+                $posts[] = $this->createPostTwitter($tweet);
             }
 
             // return the search results page
             $view = view('search.index')->with(compact([
                 'term',
                 'posts',
-                // 'twitter_results',
                 // 'instagram_results',
+                // 'twitter_results',
             ]));
         }
 
@@ -82,6 +82,20 @@ class SearchController extends Controller
     }
 
     /**
+     * Searches Instagram for the specified $hashtag.
+     *
+     * @example array($post1, $post2, $post3)
+     * @param  string $hashtag
+     * @return array|object
+     */
+    protected function searchInstagram($hashtag)
+    {
+        $search_results = \Instagram::getTagMedia($hashtag, 50);
+
+        return $search_results->data;
+    }
+
+    /**
      * Searches Twitter for the specified $hashtag.
      *
      * @example array($tweet1, $tweet2, $tweet3)
@@ -97,67 +111,6 @@ class SearchController extends Controller
         ]);
 
         return $search_results->statuses;
-    }
-
-    /**
-     * Searches Instagram for the specified $hashtag.
-     *
-     * @example array($post1, $post2, $post3)
-     * @param  string $hashtag
-     * @return array|object
-     */
-    protected function searchInstagram($hashtag)
-    {
-        $search_results = \Instagram::getTagMedia($hashtag, 50);
-
-        return $search_results->data;
-    }
-
-    /**
-     * Creates an \App\Post model object from specified Twitter $tweet object.
-     *
-     * @param  object $tweet
-     * @return object
-     */
-    protected function createPostTwitter($tweet)
-    {
-        // // check if post was already created
-        // $uri = \Twitter::linkTweet($tweet);
-        // $post = \App\Post::where('uri', '=', $uri)->first();
-        //
-        // // create post if needed
-        // if (!$post) {
-        //     $post = new \App\Post();
-        //     $post->provider = \App\Post::PROVIDER_TWITTER;
-        //     $post->uri = $uri;
-        //     $post->source_time = \Carbon\Carbon::createFromFormat(
-        //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
-        //     $post->text = \Twitter::linkify($tweet);
-        // }
-        //
-        // create post
-        $post = new \App\Post();
-        $post->provider = \App\Post::PROVIDER_TWITTER;
-        $post->uri = \Twitter::linkTweet($tweet);
-        $post->source_time = \Carbon\Carbon::createFromFormat(
-            'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
-        $post->text = \Twitter::linkify($tweet);
-
-        // cache oEmbed request
-        \Oembed::cache($post->uri, []);
-
-        // add media if available
-        if (isset($tweet->entities->media)) {
-            foreach ($tweet->entities->media as $tweet_medium) {
-                // $medium = new \App\Medium();
-                // $medium->type = $tweet_medium->type;
-                // $medium->uri = $tweet_medium->media_url_https;
-                // $post->media()->save($medium);
-                $post->media_uri = $tweet_medium->media_url_https;
-            }
-        }
-
-        return $post;
     }
 
     /**
@@ -189,13 +142,49 @@ class SearchController extends Controller
         $post->source_time = \Carbon\Carbon::createFromTimestamp(
             $insta->created_time)->toDateTimeString();
         $post->text = $insta->caption ? $insta->caption->text : '';
+        //
+        // // add media if available
+        // $post->media_uri = $insta->images->standard_resolution->url;
 
-        // add media if available
-        // $medium = new \App\Medium();
-        // $medium->type = $insta->type;
-        // $medium->uri = $insta->images->standard_resolution->url;
-        // $post->media()->save($medium);
-        $post->media_uri = $insta->images->standard_resolution->url;
+        return $post;
+    }
+
+    /**
+     * Creates an \App\Post model object from specified Twitter $tweet object.
+     *
+     * @param  object $tweet
+     * @return object
+     */
+    protected function createPostTwitter($tweet)
+    {
+        // // check if post was already created
+        // $uri = \Twitter::linkTweet($tweet);
+        // $post = \App\Post::where('uri', '=', $uri)->first();
+        //
+        // // create post if needed
+        // if (!$post) {
+        //     $post = new \App\Post();
+        //     $post->provider = \App\Post::PROVIDER_TWITTER;
+        //     $post->uri = $uri;
+        //     $post->source_time = \Carbon\Carbon::createFromFormat(
+        //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
+        //     $post->text = \Twitter::linkify($tweet);
+        // }
+        //
+        // create post
+        $post = new \App\Post();
+        $post->provider = \App\Post::PROVIDER_TWITTER;
+        $post->uri = \Twitter::linkTweet($tweet);
+        $post->source_time = \Carbon\Carbon::createFromFormat(
+            'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
+        $post->text = \Twitter::linkify($tweet);
+        //
+        // // add media if available
+        // if (isset($tweet->entities->media)) {
+        //     foreach ($tweet->entities->media as $tweet_medium) {
+        //         $post->media_uri = $tweet_medium->media_url_https;
+        //     }
+        // }
 
         return $post;
     }

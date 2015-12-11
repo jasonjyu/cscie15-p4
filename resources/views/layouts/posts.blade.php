@@ -3,16 +3,16 @@
     <div class='posts'>
         @foreach ($posts as $post)
             <span class='post'>
-                @if ($post->provider == \App\Post::PROVIDER_TWITTER)
-                    <!-- {!! Oembed::cache($post->uri, [])->code !!} -->
-                    <iframe class='twitter-tweet'
-                            src='http://twitframe.com/show?url={{ urlencode($post->uri) }}'
+                @if ($post->provider == \App\Post::PROVIDER_INSTAGRAM)
+                    <iframe class='instagram-media'
+                            src='{{ $post->uri }}embed/captioned/'
                             frameborder='0'
                             height='480'>
                     </iframe>
-                @elseif ($post->provider == \App\Post::PROVIDER_INSTAGRAM)
-                    <iframe class='instagram-media'
-                            src='{{ $post->uri }}embed/captioned/'
+                @elseif ($post->provider == \App\Post::PROVIDER_TWITTER)
+                    {{-- {!! Oembed::cache($post->uri, [])->code !!} --}}
+                    <iframe class='twitter-tweet'
+                            src='http://twitframe.com/show?url={{ urlencode($post->uri) }}'
                             frameborder='0'
                             height='480'>
                     </iframe>
@@ -31,5 +31,10 @@
                 @endif
             </span>
         @endforeach
+
+        @foreach ($posts as $post)
+            <a class='embedly-card' href='{{ $post->uri }}'></a>
+        @endforeach
+        <script src='//cdn.embedly.com/widgets/platform.js' async></script>
     </div>
 @endif
