@@ -32,9 +32,11 @@
             </span>
         @endforeach
 
+        {{--
         @foreach ($posts as $post)
             <a class='embedly-card' href='{{ $post->uri }}'></a>
         @endforeach
         <script src='//cdn.embedly.com/widgets/platform.js' async></script>
+        --}}
     </div>
 @endif
