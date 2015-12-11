@@ -26,9 +26,13 @@ Route::get('/search', 'SearchController@getIndex');
  */
 Route::group(['middleware' => 'auth'], function() {
     /**
+     * Registers Hashtags pages using implicit Controller routing.
+     */
+    Route::controller('/hashtags', 'HashtagController');
+    /**
      * Registers the GET route to the Hashtags page.
      */
-    Route::get('/hashtags', 'HashtagController@getIndex');
+    // Route::get('/hashtags', 'HashtagController@getIndex');
 });
 
 /*

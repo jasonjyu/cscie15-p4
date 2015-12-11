@@ -53,14 +53,11 @@ footer {
 /* End Flash Message */
 
 /* Navigation Links */
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.navbar.navbar-default {
+    min-height: 0;
 }
-
-nav ul li {
-    display: inline;
+nav a.ui-link {
+    margin: 0;
 }
 /* End Navigation Links */
 
@@ -82,7 +79,6 @@ body {
 
 hr {
     border: 1px solid;
-    width: 75%;
 }
 
 form {
