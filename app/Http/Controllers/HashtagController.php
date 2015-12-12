@@ -56,7 +56,7 @@ class HashtagController extends Controller
         $deleted_hashtags = $request['deleted_hashtags'];
 
         // delete selected hashtags
-        dump($deleted_hashtags);
+        \App\Hashtag::destroy($deleted_hashtags);
 
         // return the Delete Hashtags page with the user's saved hashtags
         $hashtags = \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy(
