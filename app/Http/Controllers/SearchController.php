@@ -31,33 +31,17 @@ class SearchController extends Controller
             $term = strtolower(preg_replace('/\s+/', '',
                 $request->term));  // remove whitespace, convert to lowercase
 
-            // save off hashtag data
+            // save off hashtag term
             $this->saveHashtag($term);
 
-            // search social media provider feeds for the specified hashtag
-            $twitter_results = $this->searchTwitter($term);
-            $instagram_results = $this->searchInstagram($term);
+            // search social media provider feeds for the specified hashtag term
+            $posts = $this->searchHashtag($term);
 
-            // convert results to \App\Post models
-            $posts = [];
-
-            // convert Instagram results to \App\Post models
-            foreach ($instagram_results as $insta) {
-                $posts[] = $this->createPostInstagram($insta);
-            }
-
-            // convert Twitter results to \App\Post models
-            foreach ($twitter_results as $tweet) {
-                $posts[] = $this->createPostTwitter($tweet);
-            }
+            // sort posts
+            $this->sortPosts($posts);
 
             // return the search results page
-            $view = view('search.index')->with(compact([
-                'term',
-                'posts',
-                // 'instagram_results',
-                // 'twitter_results',
-            ]));
+            $view = view('search.index')->with(compact(['term', 'posts']));
         }
 
         return $view;
@@ -67,7 +51,7 @@ class SearchController extends Controller
      * Saves specified hashtag $term to database and associates the hashtag with
      * the user logged in if applicable.
      *
-     * @param  string $term
+     * @param  string $term hashtag term to save off
      */
     protected function saveHashtag($term)
     {
@@ -82,15 +66,42 @@ class SearchController extends Controller
     }
 
     /**
-     * Searches Instagram for the specified $hashtag.
+     * Searches social media provider feeds for the specified $hashtag.
      *
      * @example array($post1, $post2, $post3)
-     * @param  string $hashtag
+     * @param  string $hashtag hashtag term to search for
      * @return array|object
      */
-    protected function searchInstagram($hashtag)
+    protected function searchHashtag($term)
     {
-        $search_results = \Instagram::getTagMedia($hashtag, 50);
+        // search for $hashtag and convert results to \App\Post models
+        $posts = [];
+        $twitter_results = $this->searchTwitter($term);
+        $instagram_results = $this->searchInstagram($term);
+
+        // convert Instagram results to \App\Post models
+        foreach ($instagram_results as $insta) {
+            $posts[] = $this->createPostInstagram($insta);
+        }
+
+        // convert Twitter results to \App\Post models
+        foreach ($twitter_results as $tweet) {
+            $posts[] = $this->createPostTwitter($tweet);
+        }
+
+        return $posts;
+    }
+
+    /**
+     * Searches Instagram for the specified hashtag $term.
+     *
+     * @example array($insta1, $insta2, $insta3)
+     * @param  string $term hashtag term to search for
+     * @return array|object
+     */
+    protected function searchInstagram($term)
+    {
+        $search_results = \Instagram::getTagMedia($term, 50);
 
         return $search_results->data;
     }
@@ -99,13 +110,13 @@ class SearchController extends Controller
      * Searches Twitter for the specified $hashtag.
      *
      * @example array($tweet1, $tweet2, $tweet3)
-     * @param  string $hashtag
+     * @param  string $term hashtag term to search for
      * @return array|object
      */
-    protected function searchTwitter($hashtag)
+    protected function searchTwitter($term)
     {
         $search_results = \Twitter::getSearch([
-            'q'           => $hashtag,
+            'q'           => $term,
             'lang'        => 'en',
             'result_type' => 'popular',
         ]);
@@ -116,7 +127,7 @@ class SearchController extends Controller
     /**
      * Creates an \App\Post model object from specified Instagram $insta object.
      *
-     * @param  object $insta
+     * @param  object $insta Instagram post to convert to a Post model
      * @return object
      */
     protected function createPostInstagram($insta)
@@ -139,8 +150,9 @@ class SearchController extends Controller
         $post = new \App\Post();
         $post->provider = \App\Post::PROVIDER_INSTAGRAM;
         $post->uri = $insta->link;
-        $post->source_time = \Carbon\Carbon::createFromTimestamp(
-            $insta->created_time)->toDateTimeString();
+        // $post->source_time = \Carbon\Carbon::createFromTimestamp(
+        //     $insta->created_time)->toDateTimeString();
+        $post->source_time = intval($insta->created_time);
         $post->text = $insta->caption ? $insta->caption->text : '';
         //
         // // add media if available
@@ -152,7 +164,7 @@ class SearchController extends Controller
     /**
      * Creates an \App\Post model object from specified Twitter $tweet object.
      *
-     * @param  object $tweet
+     * @param  object $tweet Twitter tweet to convert to to a Post model
      * @return object
      */
     protected function createPostTwitter($tweet)
@@ -175,8 +187,10 @@ class SearchController extends Controller
         $post = new \App\Post();
         $post->provider = \App\Post::PROVIDER_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
+        // $post->source_time = \Carbon\Carbon::createFromFormat(
+        //     'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         $post->source_time = \Carbon\Carbon::createFromFormat(
-            'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
+            'D M d H:i:s P Y', $tweet->created_at)->timestamp;
         $post->text = \Twitter::linkify($tweet);
         //
         // // add media if available
@@ -187,5 +201,37 @@ class SearchController extends Controller
         // }
 
         return $post;
+    }
+
+    /**
+     * Sorts posts by specified comparison function.
+     *
+     * @param  array|object $posts posts array to sort
+     */
+    protected function sortPosts(&$posts)
+    {
+        usort($posts, [$this, 'sortByNewest']);
+    }
+
+    /**
+     * Sorts posts by newest first.
+     *
+     * @param  object $a first post object to compare
+     * @param  object $b second post object to compare
+     */
+    protected function sortByNewest($a, $b)
+    {
+        return $b->source_time - $a->source_time;
+    }
+
+    /**
+     * Sorts posts by oldest first.
+     *
+     * @param  object $a first post object to compare
+     * @param  object $b second post object to compare
+     */
+    protected function sortByOldest($a, $b)
+    {
+        return $a->source_time - $b->source_time;
     }
 }
