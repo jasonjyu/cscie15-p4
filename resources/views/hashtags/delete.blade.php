@@ -18,12 +18,26 @@ specific styesheets.
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
     @if (count($hashtags) > 0)
-        <div class='hashtags'>
-            @foreach ($hashtags as $hashtag)
-                #{{ $hashtag->term }}
-                <br/>
-            @endforeach
-        </div>
+        <form method='post' action='/hashtags/delete' data-transition='none'
+            {{-- allow error and debug pages to open with jQuery libraries --}}
+              {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
+            {!! csrf_field() !!}
+            <fieldset data-role='controlgroup'>
+                <legend>Select hashtags to delete:</legend>
+                <div class='hashtags'>
+                    @foreach ($hashtags as $hashtag)
+                        <input id='{{ $hashtag->id }}'
+                           type='checkbox'
+                           name='deleted_hashtags[]'
+                           value='{{ $hashtag->id }}'/>
+                        <label for='{{ $hashtag->id }}'>
+                            #{{ $hashtag->term }}
+                        </label>
+                    @endforeach
+                </div>
+            </fieldset>
+            <button type='submit' class='btn btn-primary'>Delete</button>
+        </form>
     @else
         <p>
             You have not searched any hashtags.

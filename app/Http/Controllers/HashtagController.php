@@ -40,6 +40,33 @@ class HashtagController extends Controller
     }
 
     /**
+     * Processes the Delete Hashtags page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postDelete(Request $request)
+    {
+        // validate request
+        $this->validate(
+            $request, [
+                "deleted_hashtags" => "array",
+            ]);
+
+        // parse request
+        $deleted_hashtags = $request['deleted_hashtags'];
+
+        // delete selected hashtags
+        dump($deleted_hashtags);
+
+        // return the Delete Hashtags page with the user's saved hashtags
+        $hashtags = \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy(
+            'term','ASC')->get();
+        $view = view('hashtags.delete')->with('hashtags', $hashtags);
+
+        return $view;
+    }
+
+    /**
      * Displays the Edit Hashtags page.
      *
      * @return \Illuminate\Http\Response

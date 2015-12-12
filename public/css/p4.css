@@ -54,7 +54,10 @@ footer {
 
 /* Navigation Links */
 .navbar.navbar-default {
+    margin: auto;
     min-height: 0;
+    min-width: 500px;
+    width: 75%;
 }
 
 nav a.ui-link {

@@ -1,5 +1,13 @@
 .hashtags {
-    margin:auto;
+    margin: auto;
     text-align: left;
     width: 10%;
+}
+
+form {
+    width: 25%;
+}
+
+form .hashtags {
+    width: 75%;
 }

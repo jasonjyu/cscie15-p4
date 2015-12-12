@@ -14,11 +14,12 @@ TBD.
 
 ## Outside code
 * Bootstrap: http://getbootstrap.com/
-* Bootstrap Theme: http://bootswatch.com/flatly/
+* Bootstrap Theme: http://bootswatch.com/readable/
 * Twitter API for Laravel 4/5: https://github.com/thujohn/twitter
+* Twitframe - Embed Tweets in an iframe: https://twitframe.com/
 * Instagram PHP API V2: https://github.com/cosenary/Instagram-PHP-API
 * Laravel Instagram: https://github.com/vinkla/instagram
-* jQuery Mobile Search Input: http://www.w3schools.com/jquerymobile/jquerymobile_form_inputs.asp
+* jQuery Mobile Form Input: http://www.w3schools.com/jquerymobile/jquerymobile_form_inputs.asp
 
 http://www.w3schools.com/jquerymobile/tryit.asp?filename=tryjqmob_forms_popup
 https://jqueryui.com/autocomplete/
