@@ -12,18 +12,18 @@
         {!! csrf_field() !!}
 
         <div class='form-group'>
-            <label for='email'>Email</label>
-            <input type='text' name='email' id='email' value='{{ old('email') }}' autofocus/>
+            <label for='email' class='ui-hidden-accessible'>Email</label>
+            <input id='email' type='text' name='email' value='{{ old('email') }}' placeholder='Email' autofocus/>
         </div>
 
         <div class='form-group'>
-            <label for='password'>Password</label>
-            <input type='password' name='password' id='password' value='{{ old('password') }}'/>
+            <label for='password' class='ui-hidden-accessible'>Password</label>
+            <input id='password'  type='password' name='password'value='{{ old('password') }}' placeholder='Password'/>
         </div>
 
         <div class='form-group'>
-            <input type='checkbox' name='remember' id='remember'>
-            <label for='remember' class='checkboxLabel'>Remember me</label>
+            <input id='remember' type='checkbox' name='remember'>
+            <label for='remember' class='checkboxLabel'>Keep me logged in</label>
         </div>
 
         <button type='submit' class='btn btn-primary'>Login</button>

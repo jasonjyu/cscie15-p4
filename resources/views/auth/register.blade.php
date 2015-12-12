@@ -12,23 +12,23 @@
         {!! csrf_field() !!}
 
         <div class='form-group'>
-            <label for='name'>Name</label>
-            <input type='text' name='name' id='name' value='{{ old('name') }}' autofocus/>
+            <label for='name' class='ui-hidden-accessible'>Name</label>
+            <input id='name' type='text' name='name' value='{{ old('name') }}' placeholder='Name' autofocus/>
         </div>
 
         <div class='form-group'>
-            <label for='email'>Email</label>
-            <input type='text' name='email' id='email' value='{{ old('email') }}'/>
+            <label for='email' class='ui-hidden-accessible'>Email</label>
+            <input id='email' type='text' name='email' value='{{ old('email') }}' placeholder='Email'/>
         </div>
 
         <div class='form-group'>
-            <label for='password'>Password</label>
-            <input type='password' name='password' id='password'/>
+            <label for='password' class='ui-hidden-accessible'>Password</label>
+            <input id='password' type='password' name='password' placeholder='Password'/>
         </div>
 
         <div class='form-group'>
-            <label for='password_confirmation'>Confirm Password</label>
-            <input type='password' name='password_confirmation' id='password_confirmation'/>
+            <label for='password_confirmation' class='ui-hidden-accessible'>Confirm Password</label>
+            <input id='password_confirmation' type='password' name='password_confirmation' placeholder='Confirm Password'/>
         </div>
 
         <button type='submit' class='btn btn-primary'>Register</button>
