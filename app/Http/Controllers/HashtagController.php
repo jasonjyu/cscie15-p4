@@ -58,10 +58,8 @@ class HashtagController extends Controller
         // delete selected hashtags
         \App\Hashtag::destroy($deleted_hashtags);
 
-        // return the Delete Hashtags page with the user's saved hashtags
-        $hashtags = \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy(
-            'term','ASC')->get();
-        $view = view('hashtags.delete')->with('hashtags', $hashtags);
+        // redirect to the Hashtags page
+        $view = redirect('/hashtags');
 
         return $view;
     }
@@ -77,6 +75,30 @@ class HashtagController extends Controller
         $hashtags = \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy(
             'term','ASC')->get();
         $view = view('hashtags.edit')->with('hashtags', $hashtags);
+
+        return $view;
+    }
+
+    /**
+     * Processes the Edit Hashtags page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postEdit(Request $request)
+    {
+        // validate request
+        $this->validate(
+            $request, [
+                "edited_hashtags" => "array",
+            ]);
+
+        // parse request
+        $edited_hashtags = $request['edited_hashtags'];
+
+        // update selected hashtags
+
+        // redirect to the Hashtags page
+        $view = redirect('/hashtags');
 
         return $view;
     }

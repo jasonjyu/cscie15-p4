@@ -18,12 +18,24 @@ specific styesheets.
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
     @if (count($hashtags) > 0)
-        <div class='hashtags'>
-            @foreach ($hashtags as $hashtag)
-                #{{ $hashtag->term }}
-                <br/>
-            @endforeach
-        </div>
+        <form method='post' action='/hashtags/edit' data-transition='none'
+            {{-- allow error and debug pages to open with jQuery libraries --}}
+              {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
+            {!! csrf_field() !!}
+            <div class='ui-field-contain'>
+                <legend>Edit hashtags to update:</legend>
+                <div class='hashtags'>
+                    @foreach ($hashtags as $hashtag)
+                        <input id='{{ $hashtag->id }}'
+                           type='text'
+                           name='edited_hashtags[{{ $hashtag->id }}]'
+                           value=''
+                           placeholder='{{ $hashtag->term }}'/>
+                    @endforeach
+                </div>
+            </div>
+            <button type='submit' class='btn btn-primary'>Update</button>
+        </form>
     @else
         <p>
             You have not searched any hashtags.
