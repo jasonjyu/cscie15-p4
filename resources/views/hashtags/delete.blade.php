@@ -26,8 +26,7 @@ specific styesheets.
             <a href='/hashtags/edit' data-transition='none'>Edit</a>
         </p>
         <form method='post' action='/hashtags/delete' data-transition='none'
-            {{-- allow error and debug pages to open with jQuery libraries --}}
-              {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
+              data-ajax='false'>
             {!! csrf_field() !!}
             <fieldset data-role='controlgroup'>
                 <legend>Select hashtags to delete:</legend>

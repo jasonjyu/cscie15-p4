@@ -26,8 +26,7 @@ specific styesheets.
             Edit
         </p>
         <form method='post' action='/hashtags/edit' data-transition='none'
-            {{-- allow error and debug pages to open with jQuery libraries --}}
-              {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
+              data-ajax='false'>
             {!! csrf_field() !!}
             <div class='ui-field-contain'>
                 <legend>Edit hashtags to update:</legend>
