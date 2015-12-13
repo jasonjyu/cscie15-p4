@@ -59,6 +59,7 @@ class HashtagController extends Controller
         \App\Hashtag::destroy($deleted_hashtags);
 
         // redirect to the Hashtags page
+        \Session::flash('flash_message','Deleted selected hashtags.');
         $view = redirect('/hashtags');
 
         return $view;

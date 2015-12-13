@@ -28,6 +28,7 @@ footer {
 /* End Sticky Footer */
 
 .container {
+    margin-top: 15px;
     min-width: 480px;
     width: 100%;
 }
@@ -46,7 +47,10 @@ footer {
 .flash_message {
     background-color: yellow;
     font-weight: bold;
+    left: 0;
     padding: 5px;
+    position: fixed;
+    top: 0;
     text-align: center;
     width: 100%;
 }
