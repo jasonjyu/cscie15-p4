@@ -18,6 +18,13 @@ specific styesheets.
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
+        <p>
+            View
+            |
+            <a href='/hashtags/delete' data-ajax='false'>Delete</a>
+            |
+            <a href='/hashtags/edit' data-ajax='false'>Edit</a>
+        </p>
         <legend>Click a hashtag to search:</legend>
         <div class='hashtags'>
             @foreach ($hashtags as $hashtag)

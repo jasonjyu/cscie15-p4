@@ -50,6 +50,7 @@
         <nav class='navbar navbar-default'>
             <ul class='nav navbar-nav'>
                 <li><a href='/search' data-ajax='false'>Search</a></li>
+                {{--
                 <li class='btn-group'>
                     <a href='/hashtags' data-ajax='false' data-toggle='dropdown'>Hashtags<span class='caret'></span></a>
                     <ul class='dropdown-menu'>
@@ -59,6 +60,8 @@
                         <li><a href='/hashtags/edit' data-ajax='false'>Edit</a></li>
                     </ul>
                 </li>
+                --}}
+                <li><a href='/hashtags' data-ajax='false'>Hashtags</a></li>
                 <li><a href='/corkboard' data-ajax='false'>Corkboard</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>

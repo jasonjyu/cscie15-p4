@@ -18,6 +18,13 @@ specific styesheets.
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
+        <p>
+            <a href='/hashtags' data-ajax='false'>View</a>
+            |
+            <a href='/hashtags/delete' data-ajax='false'>Delete</a>
+            |
+            Edit
+        </p>
         <form method='post' action='/hashtags/edit' data-transition='none'
             {{-- allow error and debug pages to open with jQuery libraries --}}
               {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
@@ -30,7 +37,7 @@ specific styesheets.
                            type='text'
                            name='edited_hashtags[{{ $hashtag->id }}]'
                            value=''
-                           placeholder='{{ $hashtag->term }}'/>
+                           placeholder=' {{ $hashtag->term }}'/>
                     @endforeach
                 </div>
             </div>
