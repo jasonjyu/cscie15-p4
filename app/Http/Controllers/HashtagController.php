@@ -57,7 +57,7 @@ class HashtagController extends Controller
         \App\Hashtag::destroy($deleted_hashtags);
 
         // redirect to the Hashtags page
-        \Session::flash('flash_message','Deleted selected hashtags.');
+        \Session::flash('flash_message', 'Deleted selected hashtags.');
         $view = redirect('/hashtags');
 
         return $view;
@@ -94,9 +94,21 @@ class HashtagController extends Controller
         $edited_hashtags = $request['edited_hashtags'];
 
         // update selected hashtags
+        $succeeded = true;
         $hashtags = $this->getUserHashtags();
         foreach($edited_hashtags as $id => $term) {
             if (!empty(trim($term))) {
+                // verify hashtag term does not already exists
+                $hashtag = $hashtags->first(function ($key, $val) use ($term) {
+                    return $val->term == $term;
+                });
+                if ($hashtag) {
+                    \Session::flash('flash_message',
+                        'Hashtag \''.$term.'\' already exists.');
+                    $succeeded = false;
+                    break;
+                }
+
                 $hashtag = $hashtags->find($id);
                 if ($hashtag) {
                     $hashtag->term = $term;
@@ -105,9 +117,14 @@ class HashtagController extends Controller
             }
         }
 
-        // redirect to the Hashtags page
-        \Session::flash('flash_message','Updated edited hashtags.');
-        $view = redirect('/hashtags');
+        if ($succeeded) {
+            // redirect to the Hashtags page if update succeeded
+            \Session::flash('flash_message', 'Updated edited hashtags.');
+            $view = redirect('/hashtags');
+        } else {
+            // otherwise, return the Edit Hashtags page
+            $view = view('hashtags.edit')->with('hashtags', $hashtags);
+        }
 
         return $view;
     }
