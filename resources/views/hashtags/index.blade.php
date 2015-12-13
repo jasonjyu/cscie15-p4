@@ -21,9 +21,9 @@ specific styesheets.
         <p>
             View
             |
-            <a href='/hashtags/delete' data-ajax='false'>Delete</a>
+            <a href='/hashtags/delete' data-transition='none'>Delete</a>
             |
-            <a href='/hashtags/edit' data-ajax='false'>Edit</a>
+            <a href='/hashtags/edit' data-transition='none'>Edit</a>
         </p>
         <legend>Click a hashtag to search:</legend>
         <div class='hashtags'>

@@ -19,11 +19,11 @@ specific styesheets.
     {{-- if there are $hashtags, then print out the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
         <p>
-            <a href='/hashtags' data-ajax='false'>View</a>
+            <a href='/hashtags' data-transition='none'>View</a>
             |
             Delete
             |
-            <a href='/hashtags/edit' data-ajax='false'>Edit</a>
+            <a href='/hashtags/edit' data-transition='none'>Edit</a>
         </p>
         <form method='post' action='/hashtags/delete' data-transition='none'
             {{-- allow error and debug pages to open with jQuery libraries --}}
