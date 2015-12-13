@@ -36,8 +36,8 @@ specific styesheets.
                         <input id='{{ $hashtag->id }}'
                            type='text'
                            name='edited_hashtags[{{ $hashtag->id }}]'
-                           value='{{ $_POST['edited_hashtags'][$hashtag->id] or '' }}'
-                           placeholder=' {{ $hashtag->term }}'/>
+                           value='{{ $_POST['edited_hashtags'][$hashtag->id] or $hashtag->term }}'
+                           placeholder='{{ $hashtag->term }}'/>
                     @endforeach
                 </div>
             </div>

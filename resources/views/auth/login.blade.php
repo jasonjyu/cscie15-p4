@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+    <br/>
     <p>Don't have an account? <a href='/register' data-ajax='false'>Register here...</a></p>
 
     <h1>Login</h1>

@@ -22,10 +22,9 @@ class SearchController extends Controller
             $view = view('search.index');
         } else {
             // validate request
-            $this->validate(
-                $request, [
-                    'term' => 'required',
-                ]);
+            $this->validate($request, [
+                'term' => 'required',
+            ]);
 
             // parse request
             $term = strtolower(preg_replace('/\s+/', '',

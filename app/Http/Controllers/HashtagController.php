@@ -45,19 +45,20 @@ class HashtagController extends Controller
     public function postDelete(Request $request)
     {
         // validate request
-        $this->validate(
-            $request, [
-                'deleted_hashtags' => 'array',
-            ]);
+        $this->validate($request, [
+            'deleted_hashtags' => 'array',
+        ]);
 
         // parse request
         $deleted_hashtags = $request['deleted_hashtags'];
 
-        // delete selected hashtags
-        \App\Hashtag::destroy($deleted_hashtags);
+        // delete selected hashtags if they exist
+        if ($deleted_hashtags) {
+            \App\Hashtag::destroy($deleted_hashtags);
+            \Session::flash('flash_message', 'Deleted selected hashtags.');
+        }
 
         // redirect to the Hashtags page
-        \Session::flash('flash_message', 'Deleted selected hashtags.');
         $view = redirect('/hashtags');
 
         return $view;
@@ -85,46 +86,26 @@ class HashtagController extends Controller
     public function postEdit(Request $request)
     {
         // validate request
-        $this->validate(
-            $request, [
-                'edited_hashtags' => 'array',
-            ]);
+        $this->validate($request, [
+            'edited_hashtags' => 'array',
+        ]);
 
         // parse request
         $edited_hashtags = $request['edited_hashtags'];
 
         // update selected hashtags
-        $succeeded = true;
         $hashtags = $this->getUserHashtags();
-        foreach($edited_hashtags as $id => $term) {
-            if (!empty(trim($term))) {
-                // verify hashtag term does not already exists
-                $hashtag = $hashtags->first(function ($key, $val) use ($term) {
-                    return $val->term == $term;
-                });
-                if ($hashtag) {
-                    \Session::flash('flash_message',
-                        'Hashtag \''.$term.'\' already exists.');
-                    $succeeded = false;
-                    break;
-                }
+        $num_updates = $this->updateUserHashtags($hashtags, $edited_hashtags);
 
-                $hashtag = $hashtags->find($id);
-                if ($hashtag) {
-                    $hashtag->term = $term;
-                    $hashtag->save();
-                }
-            }
-        }
-
-        if ($succeeded) {
-            // redirect to the Hashtags page if update succeeded
+        // flash messsage if 1 or more hashtags were updated
+        if ($num_updates > 0) {
             \Session::flash('flash_message', 'Updated edited hashtags.');
-            $view = redirect('/hashtags');
-        } else {
-            // otherwise, return the Edit Hashtags page
-            $view = view('hashtags.edit')->with('hashtags', $hashtags);
         }
+
+        // redirect to the Hashtags page if update succeeds, otherwise return
+        // the Edit Hashtags page
+        $view = $num_updates >= 0 ? redirect('/hashtags') :
+            view('hashtags.edit')->with('hashtags', $hashtags);
 
         return $view;
     }
@@ -139,5 +120,46 @@ class HashtagController extends Controller
     {
         return \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy('term',
             'ASC')->get();
+    }
+
+    /**
+     * Updates the current user's hashtags with the specified hashtag $terms and
+     * returns the number of hashtags updated or -1 on failure.
+     *
+     * @param  array|object $hashtags hashtags array to update
+     * @param  array|string $terms hashtag terms to update with
+     * @return integer
+     */
+    protected function updateUserHashtags($hashtags, $terms)
+    {
+        $num_updates = 0;
+        foreach($terms as $id => $term) {
+            // remove whitespace, convert to lowercase
+            $term = strtolower(preg_replace('/\s+/', '', $term));
+
+            if (!empty(trim($term))) {
+                // verify hashtag term does not already exists
+                $hashtag = $hashtags->first(
+                    function ($key, $value) use ($id, $term) {
+                        return $value->id != $id && $value->term == $term;
+                    });
+                if ($hashtag) {
+                    \Session::flash('flash_message',
+                        'Hashtag \''.$term.'\' already exists.');
+                    $num_updates = -1;
+                    break;
+                }
+
+                // update hashtag term if not the same
+                $hashtag = $hashtags->find($id);
+                if ($hashtag && $hashtag->term != $term) {
+                    $hashtag->term = $term;
+                    $hashtag->save();
+                    $num_updates++;
+                }
+            }
+        }
+
+        return $num_updates;
     }
 }
