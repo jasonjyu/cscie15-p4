@@ -17,7 +17,8 @@ specific styesheets.
     <h2>Searched Hashtags</h2>
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
-    @if (count($hashtags) > 0)
+    @if (isset($hashtags) && count($hashtags) > 0)
+        <legend>Click a hashtag to search:</legend>
         <div class='hashtags'>
             @foreach ($hashtags as $hashtag)
                 <a href='/search?term={{ $hashtag->term }}' data-ajax='false'>

@@ -17,7 +17,7 @@ specific styesheets.
     <h2>Edit Hashtags</h2>
 
     {{-- if there are $hashtags, then print out the hashtag terms --}}
-    @if (count($hashtags) > 0)
+    @if (isset($hashtags) && count($hashtags) > 0)
         <form method='post' action='/hashtags/edit' data-transition='none'
             {{-- allow error and debug pages to open with jQuery libraries --}}
               {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
@@ -36,6 +36,9 @@ specific styesheets.
             </div>
             <button type='submit' class='btn btn-primary'>Update</button>
         </form>
+
+        {{-- if there are errors, then print them out --}}
+        @include('layouts.errors')
     @else
         <p>
             You have not searched any hashtags.
