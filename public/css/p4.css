@@ -64,7 +64,7 @@ footer {
     width: 75%;
 }
 
-nav a.ui-link {
+.nav.navbar-nav a {
     margin: 0;
 }
 /* End Navigation Links */
@@ -89,13 +89,20 @@ hr {
     border: 1px solid;
 }
 
+/* jQuery Mobile Overrides */
 form {
     margin: auto;
-    width: 50%;
+    min-width: 300px;
+    width: 25%;
 }
 
-form button[type=submit] {
+.ui-page-theme-a button.ui-btn {
+    background-color: royalblue;
+    border-color: royalblue;
+    color: white;
+    font-weight: normal;
     margin: auto;
     min-width: 100px;
     width: 25%;
 }
+/* End jQuery Mobile Overrides */
