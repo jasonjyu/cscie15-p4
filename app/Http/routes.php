@@ -31,6 +31,11 @@ Route::group(['middleware' => 'auth'], function() {
      * Registers Hashtags pages using implicit Controller routing.
      */
     Route::controller('/hashtags', 'HashtagController');
+
+    /**
+     * Registers Posts pages using implicit Controller routing.
+     */
+    Route::controller('/posts', 'PostController');
 });
 
 /*

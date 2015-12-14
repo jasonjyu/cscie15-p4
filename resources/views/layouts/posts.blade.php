@@ -2,7 +2,23 @@
 @if (!empty($posts))
     <div class='posts'>
         @foreach ($posts as $post)
-            <span class='post'>
+            <div class='post'>
+                {{-- display form only if user is authenticated --}}
+                @if (isset($user))
+                    <form method='post'
+                          action='/posts/create'
+                          data-transition='none'
+                          data-ajax='false'>
+                        {!! csrf_field() !!}
+                        <input type='hidden' name='provider' value='{{ $post->provider }}'/>
+                        <input type='hidden' name='uri' value='{{ $post->uri }}'/>
+                        <input type='hidden' name='source_time' value='{{ $post->source_time }}'/>
+                        <input type='hidden' name='text' value='{{ $post->text }}'/>
+                        <button type='submit' class='btn btn-primary'>Save</button>
+                    </form>
+                @endif
+
+                {{-- display post based on provider type --}}
                 @if ($post->provider == \App\Post::PROVIDER_INSTAGRAM)
                     <iframe class='instagram-media'
                             src='{{ $post->uri }}embed/captioned/'
@@ -17,11 +33,6 @@
                             height='480'>
                     </iframe>
                 @else
-                    @if (isset($post->media_uri))
-                        <div class='media'>
-                            <img src='{{ $post->media_uri }}'/>
-                        </div>
-                    @endif
                     {!! $post->text !!}
                     <br/>
                     <a href='{{ $post->uri }}' target='_blank'>
@@ -29,7 +40,7 @@
                     </a>
                     {{ $post->feed }}
                 @endif
-            </span>
+            </div>
         @endforeach
 
         {{--

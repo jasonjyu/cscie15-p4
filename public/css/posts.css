@@ -1,10 +1,16 @@
 .post {
-    text-align: left;
-    word-wrap: break-word;
+    border: 1px solid;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 310px;
 }
 
-.media img {
-    display: block;
-    padding: 25px;
-    margin: auto;
+.post form {
+    width: 100%;
+}
+
+.post button.btn {
+    width: 100%;
 }
