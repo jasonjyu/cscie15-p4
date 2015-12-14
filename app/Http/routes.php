@@ -14,7 +14,9 @@
 /**
  * Registers the GET route to the application landing page.
  */
-Route::get('/', 'SearchController@getIndex');
+ Route::get('/', function () {
+     return view('index');
+ });
 
 /**
  * Registers the GET route to the Search page.

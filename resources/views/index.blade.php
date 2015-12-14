@@ -10,6 +10,19 @@ such as a page specific styesheets.
 @stop
 
 @section('content')
+    <h2>Welcome</h2>
+
+    {{-- the search form --}}
+    @include('layouts.search')
+
+    <br/>
+
+    <blockquote>
+        Start by searching for a hashtag. HashTagGregator searches various
+        social media feeds for a specified hashtag and displays the matching
+        posts. Registered users are able to save posts and manage their searched
+        hashtags.
+    </blockquote>
 @stop
 
 {{--
