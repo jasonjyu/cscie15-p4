@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -126,11 +127,11 @@ class HashtagController extends Controller
      * Updates the current user's hashtags with the specified hashtag $terms and
      * returns the number of hashtags updated or -1 on failure.
      *
-     * @param  array|object $hashtags hashtags array to update
+     * @param  Collection   $hashtags hashtag collection to update
      * @param  array|string $terms hashtag terms to update with
      * @return integer
      */
-    protected function updateUserHashtags($hashtags, $terms)
+    protected function updateUserHashtags(Collection $hashtags, array $terms)
     {
         $num_updates = 0;
         foreach($terms as $id => $term) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -37,7 +38,7 @@ class SearchController extends Controller
             $posts = $this->searchHashtag($term);
 
             // sort posts
-            $this->sortPosts($posts);
+            Post::sortPosts($posts, 'sortByNewest');
 
             // return the search results page
             $view = view('search.index')->with(compact(['term', 'posts']));
@@ -75,8 +76,8 @@ class SearchController extends Controller
     {
         // search for $hashtag and convert results to \App\Post models
         $posts = [];
-        $twitter_results = $this->searchTwitter($term);
         $instagram_results = $this->searchInstagram($term);
+        $twitter_results = $this->searchTwitter($term);
 
         // convert Instagram results to \App\Post models
         foreach ($instagram_results as $insta) {
@@ -146,8 +147,8 @@ class SearchController extends Controller
         // }
         //
         // create post
-        $post = new \App\Post();
-        $post->provider = \App\Post::PROVIDER_INSTAGRAM;
+        $post = new Post();
+        $post->provider = Post::PROVIDER_INSTAGRAM;
         $post->uri = $insta->link;
         // $post->source_time = \Carbon\Carbon::createFromTimestamp(
         //     $insta->created_time)->toDateTimeString();
@@ -183,8 +184,8 @@ class SearchController extends Controller
         // }
         //
         // create post
-        $post = new \App\Post();
-        $post->provider = \App\Post::PROVIDER_TWITTER;
+        $post = new Post();
+        $post->provider = Post::PROVIDER_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
         // $post->source_time = \Carbon\Carbon::createFromFormat(
         //     'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
@@ -200,37 +201,5 @@ class SearchController extends Controller
         // }
 
         return $post;
-    }
-
-    /**
-     * Sorts posts by specified comparison function.
-     *
-     * @param  array|object $posts posts array to sort
-     */
-    protected function sortPosts(&$posts)
-    {
-        usort($posts, [$this, 'sortByNewest']);
-    }
-
-    /**
-     * Sorts posts by newest first.
-     *
-     * @param  object $a first post object to compare
-     * @param  object $b second post object to compare
-     */
-    protected function sortByNewest($a, $b)
-    {
-        return $b->source_time - $a->source_time;
-    }
-
-    /**
-     * Sorts posts by oldest first.
-     *
-     * @param  object $a first post object to compare
-     * @param  object $b second post object to compare
-     */
-    protected function sortByOldest($a, $b)
-    {
-        return $a->source_time - $b->source_time;
     }
 }
