@@ -32,11 +32,10 @@ specific styesheets.
                 <legend>Edit hashtags to update:</legend>
                 <div class='hashtags'>
                     @foreach ($hashtags as $hashtag)
-                        <input id='{{ $hashtag->id }}'
-                           type='text'
-                           name='edited_hashtags[{{ $hashtag->id }}]'
-                           value='{{ $_POST['edited_hashtags'][$hashtag->id] or $hashtag->term }}'
-                           placeholder='{{ $hashtag->term }}'/>
+                        <input type='text'
+                               name='edited_hashtags[{{ $hashtag->id }}]'
+                               value='{{ $_POST['edited_hashtags'][$hashtag->id] or $hashtag->term }}'
+                               placeholder='{{ $hashtag->term }}'/>
                     @endforeach
                 </div>
             </div>

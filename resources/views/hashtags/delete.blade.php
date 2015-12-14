@@ -33,9 +33,9 @@ specific styesheets.
                 <div class='hashtags'>
                     @foreach ($hashtags as $hashtag)
                         <input id='{{ $hashtag->id }}'
-                           type='checkbox'
-                           name='deleted_hashtags[]'
-                           value='{{ $hashtag->id }}'/>
+                               type='checkbox'
+                               name='deleted_hashtags[]'
+                               value='{{ $hashtag->id }}'/>
                         <label for='{{ $hashtag->id }}'>
                             #{{ $hashtag->term }}
                         </label>
