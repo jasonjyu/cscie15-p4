@@ -26,8 +26,18 @@ specific styesheets.
                name='term'
                value='{{ $_GET['term'] or '' }}'
                placeholder='Search for a hashtag...'
-               autofocus/>
+               {{ isset($term) ? '' : 'autofocus'}}/>
     </form>
+
+    {{-- display the login reminder if user not logged in --}}
+    @if (!isset($user))
+        <br/>
+        <p>
+            <a href='/login' data-ajax='false'>Login</a> to save searched
+            <a href='/hashtags' data-ajax='false'>hashtags</a> and
+            <a href='/posts' data-ajax='false'>posts</a>.
+        </p>
+    @endif
 
     {{-- if there are errors, then print them out --}}
     @include('layouts.errors')
