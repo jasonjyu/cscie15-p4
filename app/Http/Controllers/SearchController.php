@@ -13,6 +13,7 @@ class SearchController extends Controller
     /**
      * Displays the Search results page.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function getIndex(Request $request)

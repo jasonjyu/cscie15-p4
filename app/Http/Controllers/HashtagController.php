@@ -15,7 +15,7 @@ class HashtagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getIndex(Request $request)
+    public function getIndex()
     {
         // return the Hashtags page with the user's saved hashtags
         $hashtags = $this->getUserHashtags();
@@ -29,7 +29,7 @@ class HashtagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getDelete(Request $request)
+    public function getDelete()
     {
         // return the Delete Hashtags page with the user's saved hashtags
         $hashtags = $this->getUserHashtags();
@@ -39,8 +39,9 @@ class HashtagController extends Controller
     }
 
     /**
-     * Processes the Delete Hashtags page.
+     * Processes the Delete Hashtags request.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function postDelete(Request $request)
@@ -54,7 +55,7 @@ class HashtagController extends Controller
         $deleted_hashtags = $request['deleted_hashtags'];
 
         // delete selected hashtags if they exist
-        if ($deleted_hashtags) {
+        if (!empty($deleted_hashtags)) {
             \App\Hashtag::destroy($deleted_hashtags);
             \Session::flash('flash_message', 'Deleted selected hashtags.');
         }
@@ -70,7 +71,7 @@ class HashtagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEdit(Request $request)
+    public function getEdit()
     {
         // return the Edit Hashtags page with the user's saved hashtags
         $hashtags = $this->getUserHashtags();
@@ -80,8 +81,9 @@ class HashtagController extends Controller
     }
 
     /**
-     * Processes the Edit Hashtags page.
+     * Processes the Edit Hashtags request.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function postEdit(Request $request)
@@ -144,7 +146,7 @@ class HashtagController extends Controller
                     function ($key, $value) use ($id, $term) {
                         return $value->id != $id && $value->term == $term;
                     });
-                if ($hashtag) {
+                if (isset($hashtag)) {
                     \Session::flash('flash_message',
                         'Hashtag \''.$term.'\' already exists.');
                     $num_updates = -1;
@@ -153,7 +155,7 @@ class HashtagController extends Controller
 
                 // update hashtag term if not the same
                 $hashtag = $hashtags->find($id);
-                if ($hashtag && $hashtag->term != $term) {
+                if (isset($hashtag) && $hashtag->term != $term) {
                     $hashtag->term = $term;
                     $hashtag->save();
                     $num_updates++;
