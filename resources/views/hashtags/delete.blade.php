@@ -47,11 +47,10 @@ specific styesheets.
 
         {{-- if there are errors, then print them out --}}
         @include('layouts.errors')
+    {{-- otherwise, display the search form --}}
     @else
-        <p>
-            You have not searched any hashtags.
-            Click <a href='/search' data-ajax='false'>here</a> to search.
-        </p>
+        <p>You have not searched any hashtags.</p>
+        @include('layouts.search')
     @endif
 @stop
 

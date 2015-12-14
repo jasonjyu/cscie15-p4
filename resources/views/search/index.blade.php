@@ -18,16 +18,7 @@ specific styesheets.
     <h2>Search</h2>
 
     {{-- the search form --}}
-    <form method='get' action='/search' data-transition='none'
-        {{-- allow error and debug pages to open with jQuery libraries --}}
-          {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
-        <input id='term'
-               type='search'
-               name='term'
-               value='{{ $_GET['term'] or '' }}'
-               placeholder='Search for a hashtag...'
-               {{ isset($term) ? '' : 'autofocus'}}/>
-    </form>
+    @include('layouts.search')
 
     {{-- display the login reminder if user not logged in --}}
     @if (!isset($user))
