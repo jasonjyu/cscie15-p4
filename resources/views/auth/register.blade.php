@@ -24,7 +24,7 @@
 
         <div class='form-group'>
             <label for='password' class='ui-hidden-accessible'>Password</label>
-            <input id='password' type='password' name='password' placeholder='Password'/>
+            <input id='password' type='password' name='password' placeholder='Password (min 6 characters)'/>
         </div>
 
         <div class='form-group'>

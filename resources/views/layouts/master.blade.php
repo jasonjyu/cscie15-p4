@@ -66,10 +66,11 @@
             </ul>
             <ul class='nav navbar-nav navbar-right'>
                 {{-- Show links based on if user is authenticated --}}
-                @if (Auth::check())
+                @if ($user)
                     <li><a href='/logout' data-ajax='false'>Logout {{ $user->name }}</a></li>
                 @else
                     <li><a href='/login' data-ajax='false'>Login</a></li>
+                    <li><a href='/register' data-ajax='false'>Register</a></li>
                 @endif
             </ul>
         </nav>
