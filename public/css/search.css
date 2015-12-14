@@ -3,18 +3,3 @@
     min-width: 240px;
     width: 50%;
 }
-
-.post {
-    text-align: left;
-    word-wrap: break-word;
-}
-
-.media img {
-    display: block;
-    padding: 25px;
-    margin: auto;
-}
-
-.twitter-results, .instagram-results {
-    text-align: left;
-}

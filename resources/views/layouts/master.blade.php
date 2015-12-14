@@ -62,7 +62,7 @@
                 </li>
                 --}}
                 <li><a href='/hashtags' data-ajax='false'>Hashtags</a></li>
-                <li><a href='/corkboard' data-ajax='false'>Corkboard</a></li>
+                <li><a href='/posts' data-ajax='false'>Posts</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>
                 {{-- Show links based on if user is authenticated --}}
