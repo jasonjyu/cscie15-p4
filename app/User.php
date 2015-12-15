@@ -43,6 +43,6 @@ class User extends Model implements AuthenticatableContract,
     public function hashtags()
     {
         // define one-to-many relationship (a user has many hashtags)
-        return $this->hasMany('\App\User');
+        return $this->hasMany('\App\Hashtag');
     }
 }

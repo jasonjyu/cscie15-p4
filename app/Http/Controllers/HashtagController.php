@@ -121,8 +121,7 @@ class HashtagController extends Controller
      */
     protected function getUserHashtags()
     {
-        return \App\Hashtag::where('user_id', '=', \Auth::id())->orderBy('term',
-            'ASC')->get();
+        return \Auth::user()->hashtags->sortBy('term');
     }
 
     /**
