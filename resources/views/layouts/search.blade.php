@@ -9,3 +9,6 @@
            placeholder='Search for a hashtag...'
            {{ isset($term) ? '' : 'autofocus'}}/>
 </form>
+
+{{-- if there are errors, then print them out --}}
+@include('layouts.errors')

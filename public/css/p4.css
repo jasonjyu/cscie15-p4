@@ -74,10 +74,11 @@ ul.errors {
     color: red;
     list-style-type: none;
     margin: auto;
+    margin-bottom: 5px;
     margin-top: 5px;
     padding: 0;
     text-align: left;
-    width: 50%;
+    width: 25%;
 }
 /* End Form Errors */
 

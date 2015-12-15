@@ -30,9 +30,6 @@ specific styesheets.
         </p>
     @endif
 
-    {{-- if there are errors, then print them out --}}
-    @include('layouts.errors')
-
     {{-- display the search term if it exists --}}
     @if (isset($term))
         <h3>#{{ $term }}</h3>

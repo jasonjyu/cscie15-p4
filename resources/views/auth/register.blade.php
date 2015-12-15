@@ -6,9 +6,6 @@
 
     <h1>Register</h1>
 
-    {{-- if there are errors, then print them out --}}
-    @include('layouts.errors')
-
     <form method='POST' action='/register' data-transition='none' data-ajax='false'>
         {!! csrf_field() !!}
 
@@ -34,4 +31,7 @@
 
         <button type='submit' class='btn btn-primary'>Register</button>
     </form>
+
+    {{-- if there are errors, then print them out --}}
+    @include('layouts.errors')
 @stop
