@@ -13,6 +13,13 @@ class Post extends Model
     const PROVIDER_TWITTER = 'twitter';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['provider', 'uri', 'source_time', 'text'];
+
+    /**
      * Sorts posts by specified comparison function.
      *
      * @param  array|object $posts posts array to sort
@@ -30,7 +37,7 @@ class Post extends Model
      */
     protected static function sortByNewest(Post $a, Post $b)
     {
-        return $b->source_time - $a->source_time;
+        return strcmp($b->source_time, $a->source_time);
     }
 
     /**
@@ -41,6 +48,6 @@ class Post extends Model
      */
     protected static function sortByOldest(Post $a, Post $b)
     {
-        return $a->source_time - $b->source_time;
+        return strcmp($a->source_time, $b->source_time);
     }
 }

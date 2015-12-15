@@ -52,7 +52,7 @@ class HashtagController extends Controller
         ]);
 
         // parse request
-        $deleted_hashtags = $request['deleted_hashtags'];
+        $deleted_hashtags = $request->deleted_hashtags;
 
         // delete selected hashtags if they exist
         if (!empty($deleted_hashtags)) {
@@ -94,7 +94,7 @@ class HashtagController extends Controller
         ]);
 
         // parse request
-        $edited_hashtags = $request['edited_hashtags'];
+        $edited_hashtags = $request->edited_hashtags;
 
         // update selected hashtags
         $hashtags = $this->getUserHashtags();

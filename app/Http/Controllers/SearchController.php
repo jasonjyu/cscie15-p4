@@ -151,9 +151,9 @@ class SearchController extends Controller
         $post = new Post();
         $post->provider = Post::PROVIDER_INSTAGRAM;
         $post->uri = $insta->link;
-        // $post->source_time = \Carbon\Carbon::createFromTimestamp(
-        //     $insta->created_time)->toDateTimeString();
-        $post->source_time = intval($insta->created_time);
+        $post->source_time = \Carbon\Carbon::createFromTimestamp(
+            $insta->created_time)->toDateTimeString();
+        // $post->source_time = intval($insta->created_time);
         $post->text = $insta->caption ? $insta->caption->text : '';
         //
         // // add media if available
@@ -188,10 +188,10 @@ class SearchController extends Controller
         $post = new Post();
         $post->provider = Post::PROVIDER_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
-        // $post->source_time = \Carbon\Carbon::createFromFormat(
-        //     'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
         $post->source_time = \Carbon\Carbon::createFromFormat(
-            'D M d H:i:s P Y', $tweet->created_at)->timestamp;
+            'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
+        // $post->source_time = \Carbon\Carbon::createFromFormat(
+        //     'D M d H:i:s P Y', $tweet->created_at)->timestamp;
         $post->text = \Twitter::linkify($tweet);
         //
         // // add media if available

@@ -33,9 +33,10 @@ class PostController extends Controller
      */
     public function getCreate(Request $request)
     {
-        dump($request);
+        // redirect to the Posts page
+        $view = redirect('/posts');
 
-        return "GET /create";
+        return $view;
     }
 
     /**
@@ -48,14 +49,21 @@ class PostController extends Controller
     {
         // validate request
         $this->validate($request, [
+            'provider'    => 'required',
+            'uri'         => 'required|url',
+            'source_time' => 'required',
         ]);
 
         // parse request
-        dump($request);
+        $uri = $request->uri;
+
+        // create post if it does not exist
+        \App\Post::firstOrCreate($request->except('_token'));
 
         // redirect to the previous page
+        // $view = redirect('/posts');
         $view = back();
 
-        // return $view;
+        return $view;
     }
 }

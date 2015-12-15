@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->string('provider');
             $table->string('uri')->unique();
             $table->timestamp('source_time');
-            $table->string('text');
+            $table->text('text');
         });
     }
 
