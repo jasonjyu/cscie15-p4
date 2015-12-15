@@ -60,6 +60,10 @@ class PostController extends Controller
         // create post if it does not exist
         \App\Post::firstOrCreate($request->except('_token'));
 
+        // indicate saving of post
+        \Session::flash('flash_message',
+            'Saved post <a href=\''.$uri.'\' target=\'_blank\'>'.$uri.'</a>.');
+
         // redirect to the previous page
         // $view = redirect('/posts');
         $view = back();

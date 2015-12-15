@@ -39,7 +39,7 @@
     <div class='container'>
         @if (\Session::has('flash_message'))
             <div class='flash_message'>
-                {{ \Session::get('flash_message') }}
+                {!! \Session::get('flash_message') !!}
             </div>
         @endif
 
