@@ -133,31 +133,13 @@ class SearchController extends Controller
      */
     protected function createPostInstagram($insta)
     {
-        // // check if post was already created
-        // $uri = $insta->link;
-        // $post = \App\Post::where('uri', '=', $uri)->first();
-        //
-        // // create post if needed
-        // if (!$post) {
-        //     $post = new \App\Post();
-        //     $post->provider = \App\Post::PROVIDER_INSTAGRAM;
-        //     $post->uri = $uri;
-        //     $post->source_time = \Carbon\Carbon::createFromTimestamp(
-        //         $insta->created_time)->toDateTimeString();
-        //     $post->text = $insta->caption ? $insta->caption->text : '';
-        // }
-        //
         // create post
         $post = new Post();
         $post->provider = Post::PROVIDER_INSTAGRAM;
         $post->uri = $insta->link;
         $post->source_time = \Carbon\Carbon::createFromTimestamp(
             $insta->created_time)->toDateTimeString();
-        // $post->source_time = intval($insta->created_time);
         $post->text = $insta->caption ? $insta->caption->text : '';
-        //
-        // // add media if available
-        // $post->media_uri = $insta->images->standard_resolution->url;
 
         return $post;
     }
@@ -170,36 +152,13 @@ class SearchController extends Controller
      */
     protected function createPostTwitter($tweet)
     {
-        // // check if post was already created
-        // $uri = \Twitter::linkTweet($tweet);
-        // $post = \App\Post::where('uri', '=', $uri)->first();
-        //
-        // // create post if needed
-        // if (!$post) {
-        //     $post = new \App\Post();
-        //     $post->provider = \App\Post::PROVIDER_TWITTER;
-        //     $post->uri = $uri;
-        //     $post->source_time = \Carbon\Carbon::createFromFormat(
-        //         'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
-        //     $post->text = \Twitter::linkify($tweet);
-        // }
-        //
         // create post
         $post = new Post();
         $post->provider = Post::PROVIDER_TWITTER;
         $post->uri = \Twitter::linkTweet($tweet);
         $post->source_time = \Carbon\Carbon::createFromFormat(
             'D M d H:i:s P Y', $tweet->created_at)->toDateTimeString();
-        // $post->source_time = \Carbon\Carbon::createFromFormat(
-        //     'D M d H:i:s P Y', $tweet->created_at)->timestamp;
         $post->text = \Twitter::linkify($tweet);
-        //
-        // // add media if available
-        // if (isset($tweet->entities->media)) {
-        //     foreach ($tweet->entities->media as $tweet_medium) {
-        //         $post->media_uri = $tweet_medium->media_url_https;
-        //     }
-        // }
 
         return $post;
     }
