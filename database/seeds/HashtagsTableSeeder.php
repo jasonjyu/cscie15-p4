@@ -27,6 +27,7 @@ class HashtagsTableSeeder extends Seeder
                 'xmenapocalypse',
                 'flash',
                 '1989tourmelbourne',
+                'jessicajones',
             ],
             'jamal@harvard.edu' => [
                 'adele',
@@ -40,6 +41,7 @@ class HashtagsTableSeeder extends Seeder
                 'batmanvsuperman',
                 'grammys',
                 'screamqueens',
+                'girlsgeneration',
             ],
         ];
 
