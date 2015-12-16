@@ -26,7 +26,7 @@ class AuthController extends Controller
     /**
      * Where should the user be redirected to if their login succeeds?
      */
-    protected $redirectPath = '/';
+    protected $redirectPath = '/search';
 
     /**
      * Where should the user be redirected to if their login fails?
@@ -36,7 +36,7 @@ class AuthController extends Controller
     /**
      * Where should the user be redirected to after logging out?
      */
-    protected $redirectAfterLogout = '/';
+    protected $redirectAfterLogout = '/search';
 
     /**
      * Create a new authentication controller instance.
@@ -85,8 +85,15 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
+        // indicate user is logged out
         \Session::flash('flash_message', 'You have been logged out.');
+
         \Auth::logout();
+
+        // if previous page is the /search page, then redirect there
+        if (preg_match('/\/search/', back()->getTargetUrl())) {
+            return back();
+        }
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
