@@ -3,14 +3,14 @@
     border-radius: 10px;
     display: inline-block;
     margin-bottom: 5px;
-    padding: 5px;
-    width: 310px;
+    padding: 5px 0px;
+    width: 300px;
 }
 
-.post form {
-    width: 100%;
+.post iframe {
+    width: 95%;
 }
 
 .post button.btn {
-    width: 100%;
+    width: 95%;
 }
