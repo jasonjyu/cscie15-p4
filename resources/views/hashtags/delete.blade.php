@@ -10,7 +10,6 @@ to add specific things that *this* View needs in the head, such as a page
 specific styesheets.
 --}}
 @section('head')
-    <link href='/css/search.css' rel='stylesheet'/>
     <link href='/css/hashtags.css' rel='stylesheet'/>
 @stop
 
