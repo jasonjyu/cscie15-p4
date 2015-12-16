@@ -3,8 +3,8 @@
     <div class='posts'>
         @foreach ($posts as $post)
             <div class='post'>
-                {{-- display form only if user is authenticated --}}
-                @if (isset($user))
+                {{-- display form only if specified --}}
+                @if (!empty($posts_enable_form))
                     {{-- if post id exists, then display the unsave form --}}
                     @if ($post->id)
                         <form method='post'

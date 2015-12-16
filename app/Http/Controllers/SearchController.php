@@ -45,8 +45,15 @@ class SearchController extends Controller
             // merge posts with current user's saved posts
             $this->mergePosts($posts);
 
+            // enable form for posts if a user is logged in
+            $posts_enable_form = \Auth::check();
+
             // return the search results page
-            $view = view('search.index')->with(compact(['term', 'posts']));
+            $view = view('search.index')->with(compact([
+                'term',
+                'posts',
+                'posts_enable_form',
+            ]));
         }
 
         return $view;

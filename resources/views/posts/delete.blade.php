@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    HashTagGregator - Saved Posts
+    HashTagGregator - Delete Posts
 @stop
 
 {{--
@@ -13,14 +13,14 @@ specific styesheets.
 @stop
 
 @section('content')
-    <h2>Saved Posts</h2>
+    <h2>Delete Posts</h2>
 
     {{-- if there are posts, then display the posts --}}
     @if (isset($posts) && count($posts) > 0)
         <p>
-            View
+            <a href='/posts' data-transition='none'>View</a>
             |
-            <a href='/posts/delete' data-transition='none'>Delete</a>
+            Delete
         </p>
         @include('layouts.posts')
     {{-- otherwise, display the search form --}}

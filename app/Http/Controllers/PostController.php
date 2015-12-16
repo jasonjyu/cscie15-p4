@@ -93,8 +93,21 @@ class PostController extends Controller
      */
     public function getDelete()
     {
-        // redirect to the previous page
-        $view = back();
+        // get the user logged in
+        $user = \Auth::user();
+
+        // if a user is logged in, then display the user's saved posts
+        // otherwise, do not display any posts
+        if (isset($user)) {
+            // return the Delete Posts page with the user's saved posts
+            $view = view('posts.delete')->with([
+                'posts' => $user->posts,
+                'posts_enable_form' => true,
+            ]);
+        } else {
+            // return the Posts page without any posts
+            $view = view('posts.delete');
+        }
 
         return $view;
     }
