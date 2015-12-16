@@ -45,4 +45,15 @@ class User extends Model implements AuthenticatableContract,
         // define one-to-many relationship (a user has many hashtags)
         return $this->hasMany('\App\Hashtag');
     }
+
+    /**
+     * Defines the relationship between this model and the Post model.
+     */
+    public function posts()
+    {
+        // define many-to-many relationship (many users have many hashtags),
+        // withTimestamps() will ensure the pivot table has its
+        // created_at/updated_at fields automatically maintained
+        return $this->belongsToMany('\App\Post')->withTimestamps();
+    }
 }

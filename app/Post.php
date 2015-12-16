@@ -20,6 +20,17 @@ class Post extends Model
     protected $fillable = ['provider', 'uri', 'source_time', 'text'];
 
     /**
+     * Defines the relationship between this model and the User model.
+     */
+    public function users()
+    {
+        // define many-to-many relationship (many posts have many users),
+        // withTimestamps() will ensure the pivot table has its
+        // created_at/updated_at fields automatically maintained
+        return $this->belongsToMany('\App\User')->withTimestamps();
+    }
+
+    /**
      * Sorts posts by specified comparison function.
      *
      * @param  array|object $posts posts array to sort

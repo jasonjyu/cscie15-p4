@@ -116,8 +116,8 @@ class HashtagController extends Controller
     /**
      * Gets the current user's saved hashtags.
      *
-     * @example array($hashtag1, $hashtag2, $hashtag3)
-     * @return array|object
+     * @example Collection($hashtag1, $hashtag2, $hashtag3)
+     * @return Collection
      */
     protected function getUserHashtags()
     {

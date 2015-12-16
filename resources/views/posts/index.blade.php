@@ -16,8 +16,14 @@ specific styesheets.
 @section('content')
     <h2>Posts</h2>
 
-    {{-- if $posts is not empty, then display the posts --}}
-    @include('layouts.posts')
+    {{-- if there are posts, then display the posts --}}
+    @if (isset($posts) && count($posts) > 0)
+        @include('layouts.posts')
+    {{-- otherwise, display the search form --}}
+    @else
+        <p>You have not saved any posts. Start by searching for a hashtag.</p>
+        @include('layouts.search')
+    @endif
 @stop
 
 {{--

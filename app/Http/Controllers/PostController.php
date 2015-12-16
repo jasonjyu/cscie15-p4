@@ -16,11 +16,18 @@ class PostController extends Controller
      */
     public function getIndex()
     {
-        // query the database for all posts
-        $posts = \App\Post::all();
+        // get the user logged in
+        $user = \Auth::user();
 
-        // return the Posts page
-        $view = view('posts.index')->with('posts', $posts);
+        // if a user is logged in, then display the user's saved posts
+        // otherwise, do not display any posts
+        if ($user) {
+            // return the Posts page with the user's saved posts
+            $view = view('posts.index')->with('posts', $user->posts);
+        } else {
+            // return the Posts page without any posts
+            $view = view('posts.index');
+        }
 
         return $view;
     }
@@ -58,7 +65,16 @@ class PostController extends Controller
         $uri = $request->uri;
 
         // create post if it does not exist
-        \App\Post::firstOrCreate($request->except('_token'));
+        $post = \App\Post::firstOrCreate($request->except('_token'));
+
+        // get the user logged in
+        $user = \Auth::user();
+
+        // if a user is logged in and the post is not already associated,
+        // then associate the user with the post
+        if ($user && !$user->posts->contains('id', $post->id)) {
+            $user->posts()->save($post);
+        }
 
         // indicate saving of post
         \Session::flash('flash_message',

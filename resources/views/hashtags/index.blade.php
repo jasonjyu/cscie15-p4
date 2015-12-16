@@ -17,7 +17,7 @@ specific styesheets.
 @section('content')
     <h2>Searched Hashtags</h2>
 
-    {{-- if there are $hashtags, then print out the hashtag terms --}}
+    {{-- if there are hashtags, then display the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
         <p>
             View

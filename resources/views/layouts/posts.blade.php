@@ -1,5 +1,5 @@
-{{-- if $posts is not empty, then display the posts --}}
-@if (!empty($posts))
+{{-- if there are posts, then display the posts --}}
+@if (isset($posts) && count($posts) > 0)
     <div class='posts'>
         @foreach ($posts as $post)
             <div class='post'>
@@ -10,10 +10,18 @@
                           data-transition='none'
                           data-ajax='false'>
                         {!! csrf_field() !!}
-                        <input type='hidden' name='provider' value='{{ $post->provider }}'/>
-                        <input type='hidden' name='uri' value='{{ $post->uri }}'/>
-                        <input type='hidden' name='source_time' value='{{ $post->source_time }}'/>
-                        <input type='hidden' name='text' value='{{ $post->text }}'/>
+                        <input type='hidden'
+                               name='provider'
+                               value='{{ $post->provider }}'/>
+                        <input type='hidden'
+                               name='uri'
+                               value='{{ $post->uri }}'/>
+                        <input type='hidden'
+                               name='source_time'
+                               value='{{ $post->source_time }}'/>
+                        <input type='hidden'
+                               name='text'
+                               value='{{ $post->text }}'/>
                         <button type='submit' class='btn btn-primary'>Save</button>
                     </form>
                 @endif
