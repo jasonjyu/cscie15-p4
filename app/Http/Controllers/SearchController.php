@@ -40,6 +40,10 @@ class SearchController extends Controller
 
             // sort posts
             Post::sortPosts($posts, 'sortByNewest');
+            // $posts = collect($posts)->sortByDesc('source_time');
+
+            // merge posts with current user's saved posts
+            $this->mergePosts($posts);
 
             // return the search results page
             $view = view('search.index')->with(compact(['term', 'posts']));
@@ -161,5 +165,38 @@ class SearchController extends Controller
         $post->text = \Twitter::linkify($tweet);
 
         return $post;
+    }
+
+    /**
+     * Merge posts with current user's saved posts by adding the post ID
+     * attribute for matching post URI attributes.
+     *
+     * @param  array|object $posts posts array to merge
+     */
+    protected function mergePosts(array &$posts)
+    {
+        // get the user logged in
+        $user = \Auth::user();
+
+        // if a user is logged in, then continue to merge the posts
+        if (isset($user)) {
+            // get the user's saved posts
+            $saved_posts = $user->posts;
+
+            // merge each post with the current user's saved posts
+            foreach ($posts as $post) {
+                // find the saved post with a matching URI
+                $uri = $post->uri;
+                $saved_post = $saved_posts->first(
+                    function ($key, $value) use ($uri) {
+                        return $value->uri == $uri;
+                    });
+
+                // if the saved post is found, then merge its post ID
+                if (isset($saved_post)) {
+                    $post->id = $saved_post->id;
+                }
+            }
+        }
     }
 }

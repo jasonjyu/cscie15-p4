@@ -21,7 +21,7 @@ class PostController extends Controller
 
         // if a user is logged in, then display the user's saved posts
         // otherwise, do not display any posts
-        if ($user) {
+        if (isset($user)) {
             // return the Posts page with the user's saved posts
             $view = view('posts.index')->with('posts', $user->posts);
         } else {
