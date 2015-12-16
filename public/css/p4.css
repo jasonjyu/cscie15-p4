@@ -83,6 +83,7 @@ ul.errors {
 /* End Form Errors */
 
 body {
+    background-color: ghostwhite;
     text-align: center;
 }
 
@@ -91,6 +92,10 @@ hr {
 }
 
 /* jQuery Mobile Overrides */
+.ui-page-theme-a {
+    background-color: ghostwhite;
+}
+
 form {
     margin: auto;
     min-width: 300px;
@@ -101,7 +106,7 @@ form {
     background-color: royalblue;
     border-color: royalblue;
     color: white;
-    font-weight: normal;
+    font-weight: 100;
     margin: auto;
     min-width: 100px;
     width: 25%;

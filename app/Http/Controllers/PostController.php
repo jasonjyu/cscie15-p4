@@ -35,13 +35,12 @@ class PostController extends Controller
     /**
      * Displays the Create Posts page.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function getCreate(Request $request)
+    public function getCreate()
     {
-        // redirect to the Posts page
-        $view = redirect('/posts');
+        // redirect to the previous page
+        $view = back();
 
         return $view;
     }
@@ -64,7 +63,7 @@ class PostController extends Controller
         // parse request
         $uri = $request->uri;
 
-        // create post if it does not exist
+        // create a post if it does not exist
         $post = \App\Post::firstOrCreate($request->except('_token'));
 
         // get the user logged in
@@ -72,13 +71,70 @@ class PostController extends Controller
 
         // if a user is logged in and the post is not already associated,
         // then associate the user with the post
-        if ($user && !$user->posts->contains('id', $post->id)) {
+        if (isset($user) && !$user->posts->contains('id', $post->id)) {
             $user->posts()->save($post);
         }
 
-        // indicate saving of post
+        // indicate saving of the post
         \Session::flash('flash_message',
             'Saved post <a href=\''.$uri.'\' target=\'_blank\'>'.$uri.'</a>.');
+
+        // redirect to the previous page
+        // $view = redirect('/posts');
+        $view = back();
+
+        return $view;
+    }
+
+    /**
+     * Displays the Delete Posts page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDelete()
+    {
+        // redirect to the previous page
+        $view = back();
+
+        return $view;
+    }
+
+    /**
+     * Processes the Delete Post request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postDelete(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'post_id' => 'required|numeric|min:1',
+        ]);
+
+        // parse request
+        $post_id = $request->post_id;
+
+        // get the post
+        $post = \App\Post::find($post_id);
+
+        // if the post is found, remove its association with the current user
+        if (isset($post)) {
+            $post->users()->detach(\Auth::id());
+
+            // if the post has no more user associations, then delete it
+            if ($post->users->isEmpty()) {
+                $post->delete();
+            }
+
+            // indicate unsaving of post
+            \Session::flash('flash_message', 'Unsaved post <a href=\''.
+                $post->uri.'\' target=\'_blank\'>'.$post->uri.'</a>.');
+        } else {
+            // indicate post is not found
+            \Session::flash('flash_message', 'Could not find Post ID = '.
+                $post_id.'.');
+        }
 
         // redirect to the previous page
         // $view = redirect('/posts');

@@ -5,25 +5,44 @@
             <div class='post'>
                 {{-- display form only if user is authenticated --}}
                 @if (isset($user))
-                    <form method='post'
-                          action='/posts/create'
-                          data-transition='none'
-                          data-ajax='false'>
-                        {!! csrf_field() !!}
-                        <input type='hidden'
-                               name='provider'
-                               value='{{ $post->provider }}'/>
-                        <input type='hidden'
-                               name='uri'
-                               value='{{ $post->uri }}'/>
-                        <input type='hidden'
-                               name='source_time'
-                               value='{{ $post->source_time }}'/>
-                        <input type='hidden'
-                               name='text'
-                               value='{{ $post->text }}'/>
-                        <button type='submit' class='btn btn-primary'>Save</button>
-                    </form>
+                    {{-- if post id exists, then display the unsave form --}}
+                    @if ($post->id)
+                        <form method='post'
+                              action='/posts/delete'
+                              data-transition='none'
+                              data-ajax='false'>
+                            {!! csrf_field() !!}
+                            <input type='hidden'
+                                   name='post_id'
+                                   value='{{ $post->id }}'/>
+                            <button type='submit' class='btn btn-danger'>
+                                Unsave
+                            </button>
+                        </form>
+                    {{-- otherwise, display the save form --}}
+                    @else
+                        <form method='post'
+                              action='/posts/create'
+                              data-transition='none'
+                              data-ajax='false'>
+                            {!! csrf_field() !!}
+                            <input type='hidden'
+                                   name='provider'
+                                   value='{{ $post->provider }}'/>
+                            <input type='hidden'
+                                   name='uri'
+                                   value='{{ $post->uri }}'/>
+                            <input type='hidden'
+                                   name='source_time'
+                                   value='{{ $post->source_time }}'/>
+                            <input type='hidden'
+                                   name='text'
+                                   value='{{ $post->text }}'/>
+                            <button type='submit' class='btn btn-primary'>
+                                Save
+                            </button>
+                        </form>
+                    @endif
                 @endif
 
                 {{-- display post based on provider type --}}
