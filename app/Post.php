@@ -36,8 +36,13 @@ class Post extends Model
      * @param  array|object $posts posts array to sort
      * @param  string       $sort_func   sort function to apply on the posts
      */
-    public static function sortPosts(array &$posts, $sort_func)
+    public static function sortPosts(array &$posts, $sort_func = null)
     {
+        // if $sort_func is null, then apply default sort function
+        if (is_null($sort_func)) {
+            $sort_func = 'sortByNewest';
+        }
+
         usort($posts, 'self::'.$sort_func);
     }
 

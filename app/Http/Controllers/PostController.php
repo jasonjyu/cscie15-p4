@@ -177,11 +177,8 @@ class PostController extends Controller
         // otherwise, return an empty array
         $user_posts = \Auth::check() ? \Auth::user()->posts->all() : [];
 
-        // sort posts if the sort_by function exists in the global session
-        $sort_by = \Session::get('sort_by');
-        if (isset($sort_by)) {
-            \App\Post::sortPosts($user_posts, $sort_by);
-        }
+        // sort user's saved posts
+        \App\Post::sortPosts($user_posts, \Session::get('sort_by'));
 
         return $user_posts;
     }

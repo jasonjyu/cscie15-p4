@@ -85,19 +85,14 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        // delete most recently searched hashtag term from the global session
-        \Session::forget('searched_term');
-
         // logout user
         \Auth::logout();
 
         // indicate user is logged out
         \Session::flash('flash_message', 'You have been logged out.');
 
-        // if previous page is a search results page, then redirect there
-        if (preg_match('/\/search\?term=/', back()->getTargetUrl())) {
-            return back();
-        }
+        // delete all data from the global session
+        \Session::flush();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }

@@ -93,10 +93,7 @@ class SearchController extends Controller
         $posts = $this->searchHashtag($term);
 
         // sort posts
-        $sort_by = \Session::get('sort_by');
-        if (isset($sort_by)) {
-            Post::sortPosts($posts, $sort_by);
-        }
+        Post::sortPosts($posts, \Session::get('sort_by'));
 
         // merge posts with current user's saved posts
         $this->mergePosts($posts);
