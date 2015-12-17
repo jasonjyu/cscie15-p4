@@ -10,7 +10,22 @@ TBD.
 TBD.
 
 ## Details for teaching team
-TBD.
+For the social media API libraries to work, you first must create application
+access keys and tokens.
+* Instagram: [Developer Platform](https://www.instagram.com/developer/register/)
+* Twitter: [Application Management](https://apps.twitter.com/)
+
+Then add the keys and tokens to your .env file:
+```shell
+INSTAGRAM_CLIENT_ID={ your client id }
+INSTAGRAM_CLIENT_SECRET={ your client secret }
+INSTAGRAM_CALLBACK_URL=null
+
+TWITTER_CONSUMER_KEY={ your twitter consumer key }
+TWITTER_CONSUMER_SECRET={ your twitter consumer secret }
+TWITTER_ACCESS_TOKEN={ your twitter access token }
+TWITTER_ACCESS_TOKEN_SECRET={ your twitter access token secret }
+```
 
 ## Outside code
 * Bootstrap: http://getbootstrap.com/
