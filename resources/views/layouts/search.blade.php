@@ -2,8 +2,7 @@
 <form method='get' action='/search' data-transition='none'
     {{-- allow error and debug pages to open with jQuery libraries --}}
       {!! App::environment('local') ? 'data-ajax=\'false\'' : '' !!}>
-    <input id='term'
-           type='search'
+    <input type='search'
            name='term'
            value='{{ $_GET['term'] or '' }}'
            placeholder='Search for a hashtag...'

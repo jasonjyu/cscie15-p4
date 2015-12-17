@@ -1,3 +1,4 @@
+/* Posts */
 .post {
     border: 1px solid;
     border-radius: 10px;
@@ -19,3 +20,20 @@
     background-color: crimson;
     border-color: crimson;
 }
+/* End Posts */
+
+/* Sort Select Menu */
+#sort .ui-field-contain {
+    margin-bottom: .5em;
+    margin-top: 1em;
+}
+
+#sort label {
+    margin-top: .4em;
+}
+
+#sort .ui-btn {
+    padding-bottom: .2em;
+    padding-top: .2em;
+}
+/* End Sort Select Menu */

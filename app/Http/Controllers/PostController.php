@@ -24,6 +24,31 @@ class PostController extends Controller
     }
 
     /**
+     * Processes the Sort Posts request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postSort(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'sort_by' => 'required',
+        ]);
+
+        // parse request
+        $sort_by = $request->sort_by;
+
+        // store $sort_by in the global session
+        session(['sort_by' => $sort_by]);
+
+        // redirect to the previous page
+        $view = back();
+
+        return $view;
+    }
+
+    /**
      * Displays the Create Posts page.
      *
      * @return \Illuminate\Http\Response
@@ -62,8 +87,7 @@ class PostController extends Controller
 
         // if a user is logged in and the post is not already associated,
         // then associate the user with the post
-        $posts = $this->getUserPosts();
-        if (isset($user) && !$posts->contains('id', $post->id)) {
+        if (isset($user) && !$user->posts->contains('id', $post->id)) {
             $user->posts()->save($post);
         }
 
@@ -144,13 +168,21 @@ class PostController extends Controller
      * Gets the current user's saved posts.  Returns an empty Collection if user
      * is not logged in.
      *
-     * @example Collection($post1, $post2, $post3)
-     * @return Collection
+     * @example array($post1, $post2, $post3)
+     * @return array|object
      */
     protected function getUserPosts()
     {
         // if a user is logged in, then return the user's saved posts
-        // otherwise, return an empty Collection
-        return \Auth::check() ? \Auth::user()->posts : collect([]);
+        // otherwise, return an empty array
+        $user_posts = \Auth::check() ? \Auth::user()->posts->all() : [];
+
+        // sort posts if the sort_by function exists in the global session
+        $sort_by = session('sort_by');
+        if (isset($sort_by)) {
+            \App\Post::sortPosts($user_posts, $sort_by);
+        }
+
+        return $user_posts;
     }
 }

@@ -29,7 +29,7 @@ footer {
 
 .container {
     margin-top: 15px;
-    min-width: 480px;
+    min-width: 500px;
     width: 100%;
 }
 
@@ -60,7 +60,6 @@ footer {
 .navbar.navbar-default {
     margin: auto;
     min-height: 0;
-    min-width: 500px;
     width: 75%;
 }
 

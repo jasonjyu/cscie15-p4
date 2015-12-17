@@ -24,6 +24,11 @@
 Route::get('/search', 'SearchController@getIndex');
 
 /**
+ * Registers the POST route to the Sort Posts page.
+ */
+Route::post('/posts/sort', 'PostController@postSort');
+
+/**
  * Registers routes that require authentication.
  */
 Route::group(['middleware' => 'auth'], function() {

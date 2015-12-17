@@ -1,16 +1,36 @@
 {{-- if there are posts, then display the posts --}}
 @if (isset($posts) && count($posts) > 0)
     <div class='posts'>
+        {{-- the posts sort form --}}
+        <form id='sort' method='post' action='/posts/sort'
+              data-transition='none'>
+            {!! csrf_field() !!}
+
+            {{-- the sort select menu --}}
+            <fieldset class='ui-field-contain'>
+                <label for='sort_by'>Sort By:</label>
+                <select id='sort_by' name='sort_by'
+                        onchange='this.form.submit()'>
+                    <option value='sortByNewest' {{ (session('sort_by') ==
+                            'sortByNewest') ? 'selected' : '' }}>
+                        Newest
+                    </option>
+                    <option value='sortByOldest' {{ (session('sort_by') ==
+                            'sortByOldest') ? 'selected' : '' }}>
+                        Oldest
+                    </option>
+                </select>
+            </fieldset>
+        </form>
+
         @foreach ($posts as $post)
             <div class='post'>
                 {{-- display form only if specified --}}
                 @if (!empty($posts_enable_form))
                     {{-- if post id exists, then display the unsave form --}}
                     @if ($post->id)
-                        <form method='post'
-                              action='/posts/delete'
-                              data-transition='none'
-                              data-ajax='false'>
+                        <form method='post' action='/posts/delete'
+                              data-transition='none' data-ajax='false'>
                             {!! csrf_field() !!}
                             <input type='hidden'
                                    name='post_id'
@@ -21,10 +41,8 @@
                         </form>
                     {{-- otherwise, display the save form --}}
                     @else
-                        <form method='post'
-                              action='/posts/create'
-                              data-transition='none'
-                              data-ajax='false'>
+                        <form method='post' action='/posts/create'
+                              data-transition='none' data-ajax='false'>
                             {!! csrf_field() !!}
                             <input type='hidden'
                                    name='provider'

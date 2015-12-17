@@ -1,5 +1,6 @@
 .hashtags {
     margin: auto;
+    min-width: 300px;
     width: 25%;
 }
 
