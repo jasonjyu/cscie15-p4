@@ -28,13 +28,18 @@ specific styesheets.
         </p>
     @endif
 
-    {{-- display the search term if it exists --}}
+    {{-- display the search term and posts if they exist --}}
     @if (isset($term))
         <h3>#{{ $term }}</h3>
-    @endif
 
-    {{-- if $posts is not empty, then display the posts --}}
-    @include('layouts.posts')
+        {{-- if there are posts, then display the posts --}}
+        @if (isset($posts) && count($posts) > 0)
+            @include('layouts.posts')
+        {{-- otherwise, display a message indicating there are no posts --}}
+        @else
+            <p>Could not find any posts. Try searching for a different hashtag.</p>
+        @endif
+    @endif
 @stop
 
 {{--
