@@ -1,10 +1,16 @@
 /* Posts */
+.posts {
+    border-top: 1px solid;
+    padding-top: 30px;
+}
+
 .post {
     border: 1px solid;
     border-radius: 10px;
     display: inline-block;
     margin-bottom: 5px;
-    padding: 5px 0px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     width: 300px;
 }
 
@@ -24,8 +30,8 @@
 
 /* Sort Select Menu */
 #sort .ui-field-contain {
+    margin-top: .5em;
     margin-bottom: .5em;
-    margin-top: 1em;
 }
 
 #sort label {
@@ -33,7 +39,7 @@
 }
 
 #sort .ui-btn {
-    padding-bottom: .2em;
     padding-top: .2em;
+    padding-bottom: .2em;
 }
 /* End Sort Select Menu */

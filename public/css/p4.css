@@ -72,9 +72,7 @@ footer {
 ul.errors {
     color: red;
     list-style-type: none;
-    margin: auto;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin: 5px auto;
     padding: 0;
     text-align: left;
     width: 25%;

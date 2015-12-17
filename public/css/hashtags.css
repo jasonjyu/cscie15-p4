@@ -1,6 +1,8 @@
 .hashtags {
+    border-top: 1px solid;
     margin: auto;
     min-width: 300px;
+    padding-top: 30px;
     width: 25%;
 }
 
