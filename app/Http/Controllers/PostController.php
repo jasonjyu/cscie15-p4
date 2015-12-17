@@ -40,7 +40,7 @@ class PostController extends Controller
         $sort_by = $request->sort_by;
 
         // store $sort_by in the global session
-        session(['sort_by' => $sort_by]);
+        \Session::put('sort_by', $sort_by);
 
         // redirect to the previous page
         $view = back();
@@ -178,7 +178,7 @@ class PostController extends Controller
         $user_posts = \Auth::check() ? \Auth::user()->posts->all() : [];
 
         // sort posts if the sort_by function exists in the global session
-        $sort_by = session('sort_by');
+        $sort_by = \Session::get('sort_by');
         if (isset($sort_by)) {
             \App\Post::sortPosts($user_posts, $sort_by);
         }

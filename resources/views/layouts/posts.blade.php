@@ -11,12 +11,12 @@
                 <label for='sort_by'>Sort By:</label>
                 <select id='sort_by' name='sort_by'
                         onchange='this.form.submit()'>
-                    <option value='sortByNewest' {{ (session('sort_by') ==
-                            'sortByNewest') ? 'selected' : '' }}>
+                    <option value='sortByNewest' {{ \Session::get('sort_by') ==
+                            'sortByNewest' ? 'selected' : '' }}>
                         Newest
                     </option>
-                    <option value='sortByOldest' {{ (session('sort_by') ==
-                            'sortByOldest') ? 'selected' : '' }}>
+                    <option value='sortByOldest' {{ \Session::get('sort_by') ==
+                            'sortByOldest' ? 'selected' : '' }}>
                         Oldest
                     </option>
                 </select>

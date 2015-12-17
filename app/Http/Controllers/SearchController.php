@@ -42,18 +42,8 @@ class SearchController extends Controller
             // save off hashtag term
             $this->saveHashtag($term);
 
-            // search social media provider feeds for the specified hashtag term
-            $posts = $this->searchHashtag($term);
-
-            // sort posts
-            $sort_by = session('sort_by');
-            if (isset($sort_by)) {
-                Post::sortPosts($posts, $sort_by);
-                // $posts = collect($posts)->sortByDesc('source_time');
-            }
-
-            // merge posts with current user's saved posts
-            $this->mergePosts($posts);
+            // get the social media posts for the specified hashtag term
+            $posts = $this->getPosts($term);
 
             // enable form for posts if a user is logged in
             $posts_enable_form = \Auth::check();
@@ -91,10 +81,34 @@ class SearchController extends Controller
     }
 
     /**
+     * Gets the social media posts for the specified $hashtag.
+     *
+     * @example array($post1, $post2, $post3)
+     * @param  string $term hashtag term to search for
+     * @return array|object
+     */
+    protected function getPosts($term)
+    {
+        // search social media provider feeds for the specified hashtag term
+        $posts = $this->searchHashtag($term);
+
+        // sort posts
+        $sort_by = \Session::get('sort_by');
+        if (isset($sort_by)) {
+            Post::sortPosts($posts, $sort_by);
+        }
+
+        // merge posts with current user's saved posts
+        $this->mergePosts($posts);
+
+        return $posts;
+    }
+
+    /**
      * Searches social media provider feeds for the specified $hashtag.
      *
      * @example array($post1, $post2, $post3)
-     * @param  string $hashtag hashtag term to search for
+     * @param  string $term hashtag term to search for
      * @return array|object
      */
     protected function searchHashtag($term)
