@@ -22,9 +22,9 @@ specific styesheets.
     @if (!isset($user))
         <br/>
         <p>
-            <a href='/login' data-ajax='false'>Login</a> to save searched
-            <a href='/hashtags' data-ajax='false'>hashtags</a> and
-            <a href='/posts' data-ajax='false'>posts</a>.
+            <a href='/login' data-ajax='false'>Login</a> to save
+            <a href='/posts' data-ajax='false'>posts</a> and manage searched
+            <a href='/hashtags' data-ajax='false'>hashtags</a>.
         </p>
     @endif
 

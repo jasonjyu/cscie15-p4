@@ -36,7 +36,7 @@ class AuthController extends Controller
     /**
      * Where should the user be redirected to after logging out?
      */
-    protected $redirectAfterLogout = '/search';
+    protected $redirectAfterLogout = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -85,13 +85,17 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
+        // delete most recently searched hashtag term from the global session
+        \Session::forget('searched_term');
+
+        // logout user
+        \Auth::logout();
+
         // indicate user is logged out
         \Session::flash('flash_message', 'You have been logged out.');
 
-        \Auth::logout();
-
-        // if previous page is the /search page, then redirect there
-        if (preg_match('/\/search/', back()->getTargetUrl())) {
+        // if previous page is a search results page, then redirect there
+        if (preg_match('/\/search\?term=/', back()->getTargetUrl())) {
             return back();
         }
 

@@ -18,10 +18,17 @@ class SearchController extends Controller
      */
     public function getIndex(Request $request)
     {
-        // if request query parameters array is empty,
-        // then return default search page
+        // check if request query parameters array is empty
         if (empty($request->all())) {
-            $view = view('search.index');
+            // if most recently searched hashtag term exists,
+            // then redirect to the search page for that term
+            // otherwise, return the default search page
+            $searched_term = \Session::get('searched_term');
+            if (isset($searched_term)) {
+                $view = redirect('/search?term='.$searched_term);
+            } else {
+                $view = view('search.index');
+            }
         } else {
             // validate request
             $this->validate($request, [
@@ -70,6 +77,9 @@ class SearchController extends Controller
      */
     protected function saveHashtag($term)
     {
+        // store most recently searched hashtag term in the global session
+        \Session::put('searched_term', $term);
+
         // if a user is logged, then associate the user with the hashtag
         if (\Auth::check()) {
             // get the user id logged in
