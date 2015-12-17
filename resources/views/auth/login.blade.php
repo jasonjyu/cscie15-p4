@@ -10,12 +10,10 @@
         {!! csrf_field() !!}
 
         <div class='form-group'>
-            <label for='email' class='ui-hidden-accessible'>Email</label>
             <input id='email' type='text' name='email' value='{{ old('email') }}' placeholder='Email' autofocus/>
         </div>
 
         <div class='form-group'>
-            <label for='password' class='ui-hidden-accessible'>Password</label>
             <input id='password'  type='password' name='password'value='{{ old('password') }}' placeholder='Password'/>
         </div>
 

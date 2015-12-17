@@ -25,14 +25,18 @@ specific styesheets.
             |
             <a href='/hashtags/edit' data-transition='none'>Edit</a>
         </p>
-        <legend>Click a hashtag to search:</legend>
         <div class='hashtags'>
-            @foreach ($hashtags as $hashtag)
-                <a href='/search?term={{ $hashtag->term }}' data-ajax='false'>
-                    #{{ $hashtag->term }}
-                </a>
-                <br/>
-            @endforeach
+            <legend>Click a hashtag to search:</legend>
+            <ul>
+                @foreach ($hashtags as $hashtag)
+                    <li>
+                        <a href='/search?term={{ $hashtag->term }}'
+                           data-ajax='false'>
+                            #{{ $hashtag->term }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </div>
     {{-- otherwise, display the search form --}}
     @else

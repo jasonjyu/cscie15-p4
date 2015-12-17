@@ -25,12 +25,12 @@ specific styesheets.
             |
             <a href='/hashtags/edit' data-transition='none'>Edit</a>
         </p>
-        <form method='post' action='/hashtags/delete' data-transition='none'
-              data-ajax='false'>
-            {!! csrf_field() !!}
-            <fieldset data-role='controlgroup'>
-                <legend>Select hashtags to delete:</legend>
-                <div class='hashtags'>
+        <div class='hashtags'>
+            <legend>Select hashtags to delete:</legend>
+            <form method='post' action='/hashtags/delete' data-transition='none'
+                  data-ajax='false'>
+                {!! csrf_field() !!}
+                <fieldset data-role='controlgroup'>
                     @foreach ($hashtags as $hashtag)
                         <input id='{{ $hashtag->id }}'
                                type='checkbox'
@@ -40,10 +40,10 @@ specific styesheets.
                             #{{ $hashtag->term }}
                         </label>
                     @endforeach
-                </div>
-            </fieldset>
-            <button type='submit' class='btn btn-primary'>Delete</button>
-        </form>
+                </fieldset>
+                <button type='submit' class='btn btn-primary'>Delete</button>
+            </form>
+        </div>
 
         {{-- if there are errors, then print them out --}}
         @include('layouts.errors')

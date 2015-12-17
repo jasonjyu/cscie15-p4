@@ -25,12 +25,12 @@ specific styesheets.
             |
             Edit
         </p>
-        <form method='post' action='/hashtags/edit' data-transition='none'
-              data-ajax='false'>
-            {!! csrf_field() !!}
-            <div class='ui-field-contain'>
-                <legend>Edit hashtags to update:</legend>
-                <div class='hashtags'>
+        <div class='hashtags'>
+            <legend>Edit hashtags to update:</legend>
+            <form method='post' action='/hashtags/edit' data-transition='none'
+                  data-ajax='false'>
+                {!! csrf_field() !!}
+                <div class='form-group'>
                     @foreach ($hashtags as $hashtag)
                         <input type='text'
                                name='edited_hashtags[{{ $hashtag->id }}]'
@@ -38,9 +38,9 @@ specific styesheets.
                                placeholder='{{ $hashtag->term }}'/>
                     @endforeach
                 </div>
-            </div>
-            <button type='submit' class='btn btn-primary'>Update</button>
-        </form>
+                <button type='submit' class='btn btn-primary'>Update</button>
+            </form>
+        </div>
 
         {{-- if there are errors, then print them out --}}
         @include('layouts.errors')

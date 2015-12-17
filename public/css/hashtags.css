@@ -1,13 +1,11 @@
 .hashtags {
     margin: auto;
-    text-align: left;
-    width: 10%;
-}
-
-form {
     width: 25%;
 }
 
-form .hashtags {
+.hashtags li {
+    list-style-type: none;
+    margin: auto;
+    text-align: left;
     width: 75%;
 }
