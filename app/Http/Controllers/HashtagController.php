@@ -150,9 +150,11 @@ class HashtagController extends Controller
                         return $value->id != $id && $value->term == $term;
                     });
                 if (isset($hashtag)) {
+                    // indicate error has occured
+                    $num_updates = -1;
+                    \Session::put('error_hashtag_edit_id', $id);
                     \Session::flash('flash_message',
                         'Hashtag \''.$term.'\' already exists.');
-                    $num_updates = -1;
                     break;
                 }
 

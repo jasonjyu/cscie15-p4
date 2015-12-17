@@ -10,3 +10,7 @@
     text-align: left;
     width: 75%;
 }
+
+.hashtags .error {
+    border: 3px solid red;
+}

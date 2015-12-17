@@ -18,10 +18,14 @@ specific styesheets.
 
     {{-- if there are hashtags, then display the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
+        {{-- check for an error with any of the hashtags --}}
+        <?php $error_id = \Session::pull('error_hashtag_edit_id'); ?>
         <p>
-            <a href='/hashtags' data-transition='none'>View</a>
+            <a href='/hashtags' data-transition='none'
+               {!! isset($error_id) ? 'data-ajax=\'false\'' : '' !!}>View</a>
             |
-            <a href='/hashtags/delete' data-transition='none'>Delete</a>
+            <a href='/hashtags/delete' data-transition='none'
+               {!! isset($error_id) ? 'data-ajax=\'false\'' : '' !!}>Delete</a>
             |
             Edit
         </p>
@@ -35,7 +39,8 @@ specific styesheets.
                         <input type='text'
                                name='edited_hashtags[{{ $hashtag->id }}]'
                                value='{{ $_POST['edited_hashtags'][$hashtag->id] or $hashtag->term }}'
-                               placeholder='{{ $hashtag->term }}'/>
+                               placeholder='{{ $hashtag->term }}'
+                               {!! $hashtag->id == $error_id ? 'class=\'error\'' : '' !!}/>
                     @endforeach
                 </div>
                 <button type='submit' class='btn btn-primary'>Update</button>
