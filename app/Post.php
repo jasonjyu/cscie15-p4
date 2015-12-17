@@ -34,6 +34,7 @@ class Post extends Model
      * Sorts posts by specified comparison function.
      *
      * @param  array|object $posts posts array to sort
+     * @param  string       $sort_func   sort function to apply on the posts
      */
     public static function sortPosts(array &$posts, $sort_func)
     {
