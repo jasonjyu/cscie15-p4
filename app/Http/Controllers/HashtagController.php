@@ -17,7 +17,7 @@ class HashtagController extends Controller
      */
     public function getIndex()
     {
-        // return the Hashtags page with the user's saved hashtags
+        // return the Hashtags page with the user's searched hashtags
         $hashtags = $this->getUserHashtags();
         $view = view('hashtags.index')->with('hashtags', $hashtags);
 
@@ -31,7 +31,7 @@ class HashtagController extends Controller
      */
     public function getDelete()
     {
-        // return the Delete Hashtags page with the user's saved hashtags
+        // return the Delete Hashtags page with the user's searched hashtags
         $hashtags = $this->getUserHashtags();
         $view = view('hashtags.delete')->with('hashtags', $hashtags);
 
@@ -73,7 +73,7 @@ class HashtagController extends Controller
      */
     public function getEdit()
     {
-        // return the Edit Hashtags page with the user's saved hashtags
+        // return the Edit Hashtags page with the user's searched hashtags
         $hashtags = $this->getUserHashtags();
         $view = view('hashtags.edit')->with('hashtags', $hashtags);
 
@@ -114,19 +114,23 @@ class HashtagController extends Controller
     }
 
     /**
-     * Gets the current user's saved hashtags.
+     * Gets the current user's searched hashtags.  Returns an empty Collection
+     * if user is not logged in.
      *
      * @example Collection($hashtag1, $hashtag2, $hashtag3)
      * @return Collection
      */
     protected function getUserHashtags()
     {
-        return \Auth::user()->hashtags->sortBy('term');
+        // if a user is logged in, then return the user's searched hashtags
+        // otherwise, return an empty Collection
+        return \Auth::check() ? \Auth::user()->hashtags->sortBy('term') :
+            collect([]);
     }
 
     /**
-     * Updates the current user's hashtags with the specified hashtag $terms and
-     * returns the number of hashtags updated or -1 on failure.
+     * Updates the current user's searched hashtags with the specified hashtag
+     * $terms and returns the number of hashtags updated or -1 on failure.
      *
      * @param  Collection   $hashtags hashtag collection to update
      * @param  array|string $terms hashtag terms to update with

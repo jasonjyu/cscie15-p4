@@ -16,18 +16,9 @@ class PostController extends Controller
      */
     public function getIndex()
     {
-        // get the user logged in
-        $user = \Auth::user();
-
-        // if a user is logged in, then display the user's saved posts
-        // otherwise, do not display any posts
-        if (isset($user)) {
-            // return the Posts page with the user's saved posts
-            $view = view('posts.index')->with('posts', $user->posts);
-        } else {
-            // return the Posts page without any posts
-            $view = view('posts.index');
-        }
+        // return the Posts page with the user's saved posts
+        $posts = $this->getUserPosts();
+        $view = view('posts.index')->with('posts', $posts);
 
         return $view;
     }
@@ -71,7 +62,8 @@ class PostController extends Controller
 
         // if a user is logged in and the post is not already associated,
         // then associate the user with the post
-        if (isset($user) && !$user->posts->contains('id', $post->id)) {
+        $posts = $this->getUserPosts();
+        if (isset($user) && !$posts->contains('id', $post->id)) {
             $user->posts()->save($post);
         }
 
@@ -93,21 +85,13 @@ class PostController extends Controller
      */
     public function getDelete()
     {
-        // get the user logged in
-        $user = \Auth::user();
-
-        // if a user is logged in, then display the user's saved posts
-        // otherwise, do not display any posts
-        if (isset($user)) {
-            // return the Delete Posts page with the user's saved posts
-            $view = view('posts.delete')->with([
-                'posts' => $user->posts,
-                'posts_enable_form' => true,
-            ]);
-        } else {
-            // return the Posts page without any posts
-            $view = view('posts.delete');
-        }
+        // return the Delete Posts page with the user's saved posts and posts
+        // form enabled
+        $posts = $this->getUserPosts();
+        $view = view('posts.delete')->with([
+            'posts' => $posts,
+            'posts_enable_form' => true,
+        ]);
 
         return $view;
     }
@@ -154,5 +138,19 @@ class PostController extends Controller
         $view = back();
 
         return $view;
+    }
+
+    /**
+     * Gets the current user's saved posts.  Returns an empty Collection if user
+     * is not logged in.
+     *
+     * @example Collection($post1, $post2, $post3)
+     * @return Collection
+     */
+    protected function getUserPosts()
+    {
+        // if a user is logged in, then return the user's saved posts
+        // otherwise, return an empty Collection
+        return \Auth::check() ? \Auth::user()->posts : collect([]);
     }
 }
