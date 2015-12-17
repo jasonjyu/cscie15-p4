@@ -28,6 +28,7 @@ class HashtagsTableSeeder extends Seeder
                 'flash',
                 '1989tourmelbourne',
                 'jessicajones',
+                '1989worldtourlive',
             ],
             'jamal@harvard.edu' => [
                 'adele',
