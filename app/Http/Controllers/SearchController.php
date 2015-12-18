@@ -71,12 +71,17 @@ class SearchController extends Controller
         \Session::put('searched_term', $term);
 
         // if a user is logged, then associate the user with the hashtag
+        // otherwise, store hashtag term in global session until user logs in
         if (\Auth::check()) {
             // get the user id logged in
             $user_id = \Auth::id();
 
             // create a hashtag associated with the user if it does not exist
             \App\Hashtag::firstOrCreate(compact('term', 'user_id'));
+        } else {
+            if (!in_array($term, \Session::get('stored_terms', []))) {
+                \Session::push('stored_terms', $term);
+            }
         }
     }
 
