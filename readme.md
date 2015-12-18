@@ -7,7 +7,7 @@
 *HashTagGregator* is a web application that searches various social media feeds for a specified hashtag and displays the matching posts. Registered users are able to save posts and manage their searched hashtags.
 
 ## Demo
-TBD.
+[Screencast Link](https://youtu.be/b_lsm6JQqXw)
 
 ## Details for teaching team
 For the social media API libraries to work, you first must create application authentication access keys and tokens.
@@ -26,17 +26,12 @@ TWITTER_ACCESS_TOKEN={ your twitter access token }
 TWITTER_ACCESS_TOKEN_SECRET={ your twitter access token secret }
 ```
 
-## Outside code
+## Outside code / references
 * Bootstrap: http://getbootstrap.com/
 * Bootstrap Theme: http://bootswatch.com/readable/
 * Twitter API for Laravel 4/5: https://github.com/thujohn/twitter
+* GET search/tweets - Twitter Developers: https://dev.twitter.com/rest/reference/get/search/tweets
 * Twitframe - Embed Tweets in an iframe: https://twitframe.com/
 * Instagram PHP API V2: https://github.com/cosenary/Instagram-PHP-API
 * Laravel Instagram: https://github.com/vinkla/instagram
 * jQuery Mobile Form Input: http://www.w3schools.com/jquerymobile/jquerymobile_form_inputs.asp
-
-http://www.w3schools.com/jquerymobile/tryit.asp?filename=tryjqmob_forms_popup
-https://jqueryui.com/autocomplete/
-https://dev.twitter.com/rest/reference/get/search/tweets
-
-composer dump-autoload
