@@ -164,6 +164,7 @@ class SearchController extends Controller
             'q'           => $term,
             'lang'        => 'en',
             'result_type' => 'popular',
+            'count'       => 30,
         ]);
 
         return $search_results->statuses;
