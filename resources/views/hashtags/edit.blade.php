@@ -37,6 +37,7 @@ specific styesheets.
                                name='edited_hashtags[{{ $hashtag->id }}]'
                                value='{{ $_POST['edited_hashtags'][$hashtag->id] or $hashtag->term }}'
                                placeholder='{{ $hashtag->term }}'
+                               data-clear-btn='true'
                                {!! $hashtag->id == $error_id ? 'class=\'error\'' : '' !!}/>
                     @endforeach
                 </div>

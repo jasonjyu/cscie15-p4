@@ -10,11 +10,11 @@
         {!! csrf_field() !!}
 
         <div class='form-group'>
-            <input id='email' type='text' name='email' value='{{ old('email') }}' placeholder='Email' autofocus/>
+            <input id='email' type='text' name='email' value='{{ old('email') }}' placeholder='Email' data-clear-btn='true' autofocus/>
         </div>
 
         <div class='form-group'>
-            <input id='password'  type='password' name='password'value='{{ old('password') }}' placeholder='Password'/>
+            <input id='password'  type='password' name='password'value='{{ old('password') }}' placeholder='Password' data-clear-btn='true'/>
         </div>
 
         <div class='form-group'>
