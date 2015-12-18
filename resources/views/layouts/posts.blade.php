@@ -24,7 +24,7 @@
         </form>
 
         @foreach ($posts as $post)
-            {{-- if post id exists, then display an anchor to to jump to --}}
+            {{-- if post id exists, then display an anchor to jump to --}}
             @if ($post->id)
                 <a id ='{{ $post->id }}' class='anchor' name='{{ $post->id }}'>
                     {{ $post->id }}
