@@ -2,11 +2,11 @@
 
 @section('content')
     <br/>
-    <p>Already have an account? <a href='/login' data-ajax='false'>Login here...</a></p>
+    <p>Already have an account? <a href='/login'>Login here...</a></p>
 
     <h1>Register</h1>
 
-    <form method='POST' action='/register' data-transition='none' data-ajax='false'>
+    <form method='POST' action='/register'>
         {!! csrf_field() !!}
 
         <div class='form-group'>

@@ -19,16 +19,15 @@ specific styesheets.
     {{-- if there are hashtags, then display the hashtag terms --}}
     @if (isset($hashtags) && count($hashtags) > 0)
         <p>
-            <a href='/hashtags' data-transition='none'>View</a>
+            <a href='/hashtags'>View</a>
             |
             Delete
             |
-            <a href='/hashtags/edit' data-transition='none'>Edit</a>
+            <a href='/hashtags/edit'>Edit</a>
         </p>
         <div class='hashtags'>
             <legend>Select hashtags to delete:</legend>
-            <form method='post' action='/hashtags/delete' data-transition='none'
-                  data-ajax='false'>
+            <form method='post' action='/hashtags/delete'>
                 {!! csrf_field() !!}
                 <fieldset data-role='controlgroup'>
                     @foreach ($hashtags as $hashtag)

@@ -21,17 +21,16 @@ specific styesheets.
         <p>
             View
             |
-            <a href='/hashtags/delete' data-transition='none'>Delete</a>
+            <a href='/hashtags/delete'>Delete</a>
             |
-            <a href='/hashtags/edit' data-transition='none'>Edit</a>
+            <a href='/hashtags/edit'>Edit</a>
         </p>
         <div class='hashtags'>
             <legend>Click a hashtag to search:</legend>
             <ul>
                 @foreach ($hashtags as $hashtag)
                     <li>
-                        <a href='/search?term={{ $hashtag->term }}'
-                           data-ajax='false'>
+                        <a href='/search?term={{ $hashtag->term }}'>
                             #{{ $hashtag->term }}
                         </a>
                     </li>

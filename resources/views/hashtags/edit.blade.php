@@ -21,18 +21,15 @@ specific styesheets.
         {{-- check for an error with any of the hashtags --}}
         <?php $error_id = \Session::pull('error_hashtag_edit_id'); ?>
         <p>
-            <a href='/hashtags' data-transition='none'
-               {!! isset($error_id) ? 'data-ajax=\'false\'' : '' !!}>View</a>
+            <a href='/hashtags'>View</a>
             |
-            <a href='/hashtags/delete' data-transition='none'
-               {!! isset($error_id) ? 'data-ajax=\'false\'' : '' !!}>Delete</a>
+            <a href='/hashtags/delete'>Delete</a>
             |
             Edit
         </p>
         <div class='hashtags'>
             <legend>Edit hashtags to update:</legend>
-            <form method='post' action='/hashtags/edit' data-transition='none'
-                  data-ajax='false'>
+            <form method='post' action='/hashtags/edit'>
                 {!! csrf_field() !!}
                 <div class='form-group'>
                     @foreach ($hashtags as $hashtag)

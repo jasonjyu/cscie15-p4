@@ -20,7 +20,7 @@ specific styesheets.
         <p>
             View
             |
-            <a href='/posts/delete' data-transition='none'>Delete</a>
+            <a href='/posts/delete'>Delete</a>
         </p>
         @include('layouts.posts')
     {{-- otherwise, display the search form --}}

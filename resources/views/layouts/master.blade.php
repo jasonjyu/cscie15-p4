@@ -29,6 +29,11 @@
 
     {{-- Required for the jQuery Mobile library --}}
     <script src='http://code.jquery.com/jquery-1.11.3.min.js'></script>
+    <script type='text/javascript'>
+        $(document).bind('mobileinit', function () {
+            $.mobile.ajaxEnabled = false;
+        });
+    </script>
     <script src='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'></script>
 
     {{--
@@ -51,28 +56,17 @@
 
         <nav class='navbar navbar-default'>
             <ul class='nav navbar-nav'>
-                <li><a href='/search' data-ajax='false'>Search</a></li>
-                {{--
-                <li class='btn-group'>
-                    <a href='/hashtags' data-ajax='false' data-toggle='dropdown'>Hashtags<span class='caret'></span></a>
-                    <ul class='dropdown-menu'>
-                        <li><a href='/hashtags' data-ajax='false'>View</a></li>
-                        <li class="divider"></li>
-                        <li><a href='/hashtags/delete' data-ajax='false'>Delete</a></li>
-                        <li><a href='/hashtags/edit' data-ajax='false'>Edit</a></li>
-                    </ul>
-                </li>
-                --}}
-                <li><a href='/hashtags' data-ajax='false'>Hashtags</a></li>
-                <li><a href='/posts' data-ajax='false'>Posts</a></li>
+                <li><a href='/search'>Search</a></li>
+                <li><a href='/hashtags'>Hashtags</a></li>
+                <li><a href='/posts'>Posts</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>
                 {{-- Show links based on if user is authenticated --}}
                 @if ($user)
-                    <li><a href='/logout' data-ajax='false'>Logout {{ $user->name }}</a></li>
+                    <li><a href='/logout'>Logout {{ $user->name }}</a></li>
                 @else
-                    <li><a href='/login' data-ajax='false'>Login</a></li>
-                    <li><a href='/register' data-ajax='false'>Register</a></li>
+                    <li><a href='/login'>Login</a></li>
+                    <li><a href='/register'>Register</a></li>
                 @endif
             </ul>
         </nav>

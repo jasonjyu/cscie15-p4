@@ -18,7 +18,7 @@ specific styesheets.
     {{-- if there are posts, then display the posts --}}
     @if (isset($posts) && count($posts) > 0)
         <p>
-            <a href='/posts' data-transition='none'>View</a>
+            <a href='/posts'>View</a>
             |
             Delete
         </p>

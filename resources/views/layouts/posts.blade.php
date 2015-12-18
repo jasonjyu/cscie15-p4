@@ -2,8 +2,7 @@
 @if (isset($posts) && count($posts) > 0)
     <div class='posts'>
         {{-- the posts sort form --}}
-        <form id='sort' method='post' action='/posts/sort'
-              data-transition='none'>
+        <form id='sort' method='post' action='/posts/sort'>
             {!! csrf_field() !!}
 
             {{-- the sort select menu --}}
@@ -35,8 +34,7 @@
                 @if (!empty($posts_enable_form))
                     {{-- if post id exists, then display the unsave form --}}
                     @if ($post->id)
-                        <form method='post' action='/posts/delete'
-                              data-transition='none' data-ajax='false'>
+                        <form method='post' action='/posts/delete'>
                             {!! csrf_field() !!}
                             <input type='hidden'
                                    name='post_id'
@@ -47,8 +45,7 @@
                         </form>
                     {{-- otherwise, display the save form --}}
                     @else
-                        <form method='post' action='/posts/create'
-                              data-transition='none' data-ajax='false'>
+                        <form method='post' action='/posts/create'>
                             {!! csrf_field() !!}
                             <input type='hidden'
                                    name='provider'
