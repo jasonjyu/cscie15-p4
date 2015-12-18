@@ -51,7 +51,15 @@
         @endif
 
         <header>
-            <h1>HashTagGregator</h1>
+            <h1>
+                <a href='https://www.instagram.com' target='_blank'>
+                    <img src='https://instagramstatic-a.akamaihd.net/favicon.ico'/>
+                </a>
+                <a href='https://twitter.com' target='_blank'>
+                    <img src='https://g.twimg.com/dev/documentation/image/Twitter_logo_blue_32.png'/>
+                </a>
+                HashTagGregator
+            </h1>
         </header>
 
         <nav class='navbar navbar-default'>
