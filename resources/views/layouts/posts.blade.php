@@ -33,8 +33,7 @@
             <div class='post'>
                 {{-- display form only if specified --}}
                 @if (!empty($posts_enable_form))
-                    {{-- if post id exists, then display the unsave form
-                         and an anchor to to jump to  --}}
+                    {{-- if post id exists, then display the unsave form --}}
                     @if ($post->id)
                         <form method='post' action='/posts/delete'
                               data-transition='none' data-ajax='false'>
