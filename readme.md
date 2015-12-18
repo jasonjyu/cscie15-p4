@@ -7,7 +7,7 @@
 *HashTagGregator* is a web application that searches various social media feeds for a specified hashtag and displays the matching posts. Registered users are able to save posts and manage their searched hashtags.
 
 ## Demo
-[Screencast Link](https://youtu.be/b_lsm6JQqXw)
+[Screencast Link](https://youtu.be/YAv-VEMqV9k)
 
 ## Details for teaching team
 For the social media API libraries to work, you first must create application authentication access keys and tokens.
