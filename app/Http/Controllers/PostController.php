@@ -96,8 +96,7 @@ class PostController extends Controller
             'Saved post <a href=\''.$uri.'\' target=\'_blank\'>'.$uri.'</a>.');
 
         // redirect to the previous page
-        // $view = redirect('/posts');
-        $view = back();
+        $view = redirect(back()->getTargetUrl().'#'.$post->id);
 
         return $view;
     }
@@ -158,7 +157,6 @@ class PostController extends Controller
         }
 
         // redirect to the previous page
-        // $view = redirect('/posts');
         $view = back();
 
         return $view;
