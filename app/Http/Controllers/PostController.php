@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -17,8 +18,10 @@ class PostController extends Controller
     public function getIndex()
     {
         // return the Posts page with the user's saved posts
-        $posts = $this->getUserPosts();
-        $view = view('posts.index')->with('posts', $posts);
+        $view = view('posts.index')->with([
+            'posts' => $this->getUserPosts(),
+            'posts_sort_by_names' => Post::getSortFunctionNames(true),
+        ]);
 
         return $view;
     }
@@ -80,7 +83,7 @@ class PostController extends Controller
         $uri = $request->uri;
 
         // create a post if it does not exist
-        $post = \App\Post::firstOrCreate($request->except('_token'));
+        $post = Post::firstOrCreate($request->except('_token'));
 
         // get the user logged in
         $user = \Auth::user();
@@ -110,9 +113,9 @@ class PostController extends Controller
     {
         // return the Delete Posts page with the user's saved posts and posts
         // form enabled
-        $posts = $this->getUserPosts();
         $view = view('posts.delete')->with([
-            'posts' => $posts,
+            'posts' => $this->getUserPosts(),
+            'posts_sort_by_names' => Post::getSortFunctionNames(true),
             'posts_enable_form' => true,
         ]);
 
@@ -136,7 +139,7 @@ class PostController extends Controller
         $post_id = $request->post_id;
 
         // get the post
-        $post = \App\Post::find($post_id);
+        $post = Post::find($post_id);
 
         // if the post is found, remove its association with the current user
         if (isset($post)) {
@@ -176,7 +179,7 @@ class PostController extends Controller
         $user_posts = \Auth::check() ? \Auth::user()->posts->all() : [];
 
         // sort user's saved posts
-        \App\Post::sortPosts($user_posts, \Session::get('sort_by'));
+        Post::sortPosts($user_posts, \Session::get('sort_by'));
 
         return $user_posts;
     }

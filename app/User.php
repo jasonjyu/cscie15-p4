@@ -53,7 +53,9 @@ class User extends Model implements AuthenticatableContract,
     {
         // define many-to-many relationship (many users have many hashtags),
         // withTimestamps() will ensure the pivot table has its
-        // created_at/updated_at fields automatically maintained
-        return $this->belongsToMany('\App\Post')->withTimestamps();
+        // created_at/updated_at fields automatically maintained,
+        // withPivot('id') will add the pivot ID information
+        return $this->belongsToMany('\App\Post')->withTimestamps()->withPivot(
+            'id');
     }
 }

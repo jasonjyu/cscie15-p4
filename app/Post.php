@@ -26,8 +26,10 @@ class Post extends Model
     {
         // define many-to-many relationship (many posts have many users),
         // withTimestamps() will ensure the pivot table has its
-        // created_at/updated_at fields automatically maintained
-        return $this->belongsToMany('\App\User')->withTimestamps();
+        // created_at/updated_at fields automatically maintained,
+        // withPivot('id') will add the pivot ID information
+        return $this->belongsToMany('\App\User')->withTimestamps()->withPivot(
+            'id');
     }
 
     /**
@@ -40,17 +42,41 @@ class Post extends Model
     {
         // if $sort_func is null, then apply default sort function
         if (is_null($sort_func)) {
-            $sort_func = 'sortByNewest';
+            $sort_func = self::getSortFunctionNames()[0];
         }
 
         usort($posts, 'self::'.$sort_func);
     }
 
     /**
-     * Sorts posts by newest first.
+     * Gets all the existing sort function names for posts.
      *
-     * @param  object $a first post object to compare
-     * @param  object $b second post object to compare
+     * @example array($func1, $func2, $func3)
+     * @param  boolean $include_saved_posts include sort function names intended
+     *                                      only for saved posts
+     * @return array|object
+     */
+    public static function getSortFunctionNames($include_saved_posts = false)
+    {
+        // base sort function names
+        $sort_func_names = [
+            'sortByNewest',
+            'sortByOldest',
+        ];
+
+        // check whether to include sort function names for saved posts
+        if ($include_saved_posts) {
+            $sort_func_names[] = 'sortByRecentlySaved';
+        }
+
+        return $sort_func_names;
+    }
+
+    /**
+     * Sorts posts by newest source time first.
+     *
+     * @param  \App\Post $a first post to compare
+     * @param  \App\Post $b second post to compare
      */
     protected static function sortByNewest(Post $a, Post $b)
     {
@@ -58,13 +84,31 @@ class Post extends Model
     }
 
     /**
-     * Sorts posts by oldest first.
+     * Sorts posts by oldest source time first.
      *
-     * @param  object $a first post object to compare
-     * @param  object $b second post object to compare
+     * @param  \App\Post $a first post to compare
+     * @param  \App\Post $b second post to compare
      */
     protected static function sortByOldest(Post $a, Post $b)
     {
         return strcmp($a->source_time, $b->source_time);
+    }
+
+    /**
+     * Sorts posts by most recently saved first.
+     *
+     * @param  \App\Post $a first post to compare
+     * @param  \App\Post $b second post to compare
+     */
+    protected static function sortByRecentlySaved(Post $a, Post $b)
+    {
+        // if pivot ID are null, then apply default sort function
+        if (is_null($a->pivot) || is_null($a->pivot->id) ||
+            is_null($b->pivot) || is_null($b->pivot->id)) {
+            return call_user_func('self::'.self::getSortFunctionNames()[0], $a,
+                $b);
+        }
+
+        return $b->pivot->id - $a->pivot->id;
     }
 }

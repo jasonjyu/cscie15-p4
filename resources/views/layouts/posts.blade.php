@@ -1,26 +1,29 @@
 {{-- if there are posts, then display the posts --}}
 @if (isset($posts) && count($posts) > 0)
     <div class='posts'>
-        {{-- the posts sort form --}}
-        <form id='sort' method='post' action='/posts/sort'>
-            {!! csrf_field() !!}
+        {{--  if there are sort_by names, then display the posts sort form --}}
+        @if (isset($posts_sort_by_names) && count($posts_sort_by_names))
+            <form id='sort' method='post' action='/posts/sort'>
+                {!! csrf_field() !!}
 
-            {{-- the sort select menu --}}
-            <fieldset class='ui-field-contain'>
-                <label for='sort_by'>Sort By:</label>
-                <select id='sort_by' name='sort_by'
-                        onchange='this.form.submit()'>
-                    <option value='sortByNewest' {{ \Session::get('sort_by') ==
-                            'sortByNewest' ? 'selected' : '' }}>
-                        Newest
-                    </option>
-                    <option value='sortByOldest' {{ \Session::get('sort_by') ==
-                            'sortByOldest' ? 'selected' : '' }}>
-                        Oldest
-                    </option>
-                </select>
-            </fieldset>
-        </form>
+                {{-- the sort select menu --}}
+                <fieldset class='ui-field-contain'>
+                    <label for='sort_by'>Sort By:</label>
+                    <select id='sort_by' name='sort_by'
+                            onchange='this.form.submit()'>
+                        @foreach ($posts_sort_by_names as $sort_by_name)
+                            <option value='{{ $sort_by_name }}'
+                                    {{ \Session::get('sort_by') ==
+                                    $sort_by_name ? 'selected' : '' }}>
+                                {{-- assume sort_by_name is prefixed with
+                                     'sortBy' --}}
+                                {{ substr($sort_by_name, 6) }}
+                            </option>
+                        @endforeach
+                    </select>
+                </fieldset>
+            </form>
+        @endif
 
         @foreach ($posts as $post)
             {{-- if post id exists, then display an anchor to jump to --}}

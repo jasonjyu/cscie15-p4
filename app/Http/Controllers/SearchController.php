@@ -45,6 +45,9 @@ class SearchController extends Controller
             // get the social media posts for the specified hashtag term
             $posts = $this->getPosts($term);
 
+            // get all the base sort function names for posts
+            $posts_sort_by_names = Post::getSortFunctionNames();
+
             // enable form for posts if a user is logged in
             $posts_enable_form = \Auth::check();
 
@@ -52,6 +55,7 @@ class SearchController extends Controller
             $view = view('search.index')->with(compact([
                 'term',
                 'posts',
+                'posts_sort_by_names',
                 'posts_enable_form',
             ]));
         }
