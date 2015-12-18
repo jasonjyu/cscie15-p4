@@ -15,7 +15,7 @@ class HashtagsTableSeeder extends Seeder
         // with
         // the *key* will be the user email and the *value* will be an array of
         // hashtags
-        $users =[
+        $users = [
             'jill@harvard.edu' => [
                 'taylorswift',
                 'katyperry',
